@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 
 const {PORT} = require('./config/env.js');
 const { DB_STRING }= require('./config/env.js');
+const { auth } = require('./middlewares/authMiddleware.js');
 const corsMiddleware = require('./middlewares/corsMiddleware.js');
 const routes = require('./routes');
 
@@ -11,6 +12,7 @@ const app = express();
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(corsMiddleware());
+app.use(auth());
 app.use(routes);
 
 mongoose.connect(DB_STRING)
