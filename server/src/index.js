@@ -7,9 +7,11 @@ const corsMiddleware = require('./middlewares/corsMiddleware.js');
 const routes = require('./routes');
 
 const app = express();
-app.use(routes);
+
+app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(corsMiddleware());
+app.use(routes);
 
 mongoose.connect(DB_STRING)
 .then(() => {
