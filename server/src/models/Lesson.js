@@ -31,7 +31,7 @@ const lessonSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    view: {
+    views: {
         type: Number,
         required: true
     },

@@ -22,7 +22,6 @@ exports.register = async (data) => {
     const user = new User(data);
 
     await user.save();
-
     return createSession(user);
 }
 exports.login = async (email, password) => {
@@ -56,6 +55,7 @@ function createSession(user) {
     const payload = {
         username: user.username,
         email: user.email,
+        kbpoints: user.kbpoints,
         _id: user._id
     };
 

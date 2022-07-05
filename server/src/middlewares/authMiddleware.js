@@ -10,6 +10,7 @@ exports.auth = () => (req, res, next) => {
             req.user = {
                 email: payload.email,
                 _id: payload._id,
+                kbpoints: payload.kbpoints,
                 token
             };
         } catch (err) {
