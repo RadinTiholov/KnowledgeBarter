@@ -28,5 +28,14 @@ router.post('/all', isAuth, async (req, res) => {
     }
 })
 
+router.get('/:id', async (req, res) => {
+    try{
+        const lesson = await lessonService.getOne(req.params.id).lean();
+        res.json(lesson);
+    }catch(error){
+        res.status(400).json({message: 'Request error'})
+    }
+})
+
 
 module.exports = router;
