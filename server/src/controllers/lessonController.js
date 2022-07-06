@@ -22,6 +22,11 @@ router.post('/all', isAuth, async (req, res) => {
         const owner = await userService.getUser(req.user._id).lean();
         owner.kbpoints += 100;
         await userService.updateKBPoints(req.user._id, owner);
+
+        const userRaw = await userService.getUser(req.user._id);
+        userRaw.ownLessons.push(result._id);
+        userRaw.save();
+
         res.json(result);
     }catch(error){
         res.status(400).json({message: error.message});
@@ -89,6 +94,33 @@ router.get('/like/:id', isAuth, async (req, res) => {
                 userRaw.save();
 
                 res.json("Successfully liked");
+            }
+        }else{
+            throw new Error("Not found");
+        }
+    }catch(error){
+        res.status(400).json({message: error.message})
+    }
+})
+
+router.get('/buy/:id', isAuth, async (req, res) => {
+    try{
+        const lesson = await lessonService.getOne(req.params.id).lean();
+        const user = await userService.getUser(req.user._id).lean();
+        if(lesson){
+            if(lesson.owner == req.user._id || user.boughtLessons.some(x => x == req.params.id)){
+                throw new Error("Unauthorized to do this action");
+            }else{
+                if(user.kbpoints >= lesson.price){
+                    const userRaw = await userService.getUser(req.user._id);
+                    userRaw.boughtLessons.push(req.params.id);
+                    userRaw.kbpoints -= lesson.price;
+                    userRaw.save();
+    
+                    res.json("Successfully bought");
+                }else{
+                    throw new Error("You don't have enought money");
+                }
             }
         }else{
             throw new Error("Not found");
