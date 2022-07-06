@@ -1,7 +1,8 @@
 const router = require('express').Router();
 
 const lessonService = require('../services/lessonService.js');
-const userService=  require('../services/userService.js');
+const userService =  require('../services/userService.js');
+const commentService =  require('../services/commentService.js');
 const { isAuth, isGuest } = require('../middlewares/authMiddleware.js');
 
 router.get('/all', async (req, res) => {
@@ -88,6 +89,7 @@ router.get('/like/:id', isAuth, async (req, res) => {
                 throw new Error("Unauthorized to do this action");
             }else{
                 const data = await lessonService.getOne(req.params.id).lean();
+                
                 await lessonService.likeById(req.params.id, data);
                 const userRaw = await userService.getUser(req.user._id);
                 userRaw.likedLessons.push(req.params.id);
@@ -122,6 +124,29 @@ router.get('/buy/:id', isAuth, async (req, res) => {
                     throw new Error("You don't have enought money");
                 }
             }
+        }else{
+            throw new Error("Not found");
+        }
+    }catch(error){
+        res.status(400).json({message: error.message})
+    }
+})
+
+router.post('/comment/:id', isAuth, async (req, res) => {
+    try{
+        const lesson = await lessonService.getOne(req.params.id).lean();
+        const user = await userService.getUser(req.user._id).lean();
+        if(lesson){
+            const commentData = req.body;
+            commentData['owner'] = user._id;
+            commentData['lesson'] = lesson._id;
+            const comment = await commentService.comment(commentData);
+
+            const lessonRaw = await lessonService.getOne(req.params.id);
+            lessonRaw.comments.push(comment);
+            lessonRaw.save();
+
+            res.json(comment);
         }else{
             throw new Error("Not found");
         }

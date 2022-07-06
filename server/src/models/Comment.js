@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const commentSchema = new mongoose.Schema({
     text: {
-        type: string,
+        type: String,
         required: true
     },
     owner: {
