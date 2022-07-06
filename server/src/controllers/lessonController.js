@@ -28,12 +28,30 @@ router.post('/all', isAuth, async (req, res) => {
     }
 })
 
-router.get('/:id', async (req, res) => {
+router.get('/details/:id', async (req, res) => {
     try{
+        const lessonRaw = await lessonService.getOne(req.params.id);
+        lessonRaw.views += 1;
+        lessonRaw.save();
+
         const lesson = await lessonService.getOne(req.params.id).lean();
         res.json(lesson);
     }catch(error){
-        res.status(400).json({message: 'Request error'})
+        res.status(400).json({message: "Bad request"})
+    }
+})
+
+router.put('/edit/:id', isAuth, async (req, res) => {
+    try{
+        const lesson = await lessonService.getOne(req.params.id).lean();
+        if(lesson.owner == req.user._id){
+            await lessonService.updateById(req.params.id, req.body);
+            res.json("Successfully updated");
+        }else{
+            throw new Error("Unauthorized to do this action");
+        }
+    }catch(error){
+        res.status(400).json({message: error.message})
     }
 })
 
