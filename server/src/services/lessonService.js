@@ -5,3 +5,7 @@ exports.create = (data) => Lesson.create(data);
 exports.getOne = (id) => Lesson.findById(id);
 exports.updateById = (id, data) => Lesson.findOneAndUpdate({_id: id}, data, { runValidators: true });
 exports.deleteById = (id) => Lesson.findOneAndDelete(id);
+exports.likeById = (id, data) => {
+    data.likes += 1;
+    return Lesson.findOneAndUpdate({_id: id}, data, { runValidators: true })
+}
