@@ -151,7 +151,7 @@ router.post('/comment/:id', isAuth, async (req, res) => {
             throw new Error("Not found");
         }
     }catch(error){
-        res.status(400).json({message: error.message})
+        res.status(400).json({message: "Bad request"})
     }
 })
 
