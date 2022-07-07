@@ -51,8 +51,7 @@ const lessonSchema = new mongoose.Schema({
         ref: 'User'
     },
     resources: {
-        type: String,
-        required: true
+        type: String
     }
 });
 
