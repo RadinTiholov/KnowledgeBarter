@@ -42,6 +42,30 @@ router.post('/all', isAuth, async (req, res) => {
     }
 })
 
+router.get('/details/:id', async (req, res) => {
+    try{
+        const course = await courseService.getOne(req.params.id).lean();
+        res.json(course);
+
+    }catch(error){
+        res.status(400).json({message: error.message});
+    }
+})
+
+router.put('/edit/:id', isAuth, async (req, res) => {
+    try{
+        const course = await courseService.getOne(req.params.id).lean();
+        if(course.owner == req.user._id){
+            await courseService.updateById(req.params.id, req.body);
+            res.json("Successfully updated");
+        }else{
+            throw new Error("Unauthorized to do this action");
+        }
+    }catch(error){
+        res.status(400).json({message: error.message});
+    }
+})
+
 function ownsAll(data, owner){
     let ownsAllLessons = true;
         for (const lesson of data['lessons']) {
