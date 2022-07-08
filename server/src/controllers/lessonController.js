@@ -66,7 +66,6 @@ router.delete('/delete/:id', isAuth, async (req, res) => {
         const lesson = await lessonService.getOne(req.params.id).lean();
         if(lesson){
             if(lesson.owner == req.user._id){
-                console.log(lesson);
                 await lessonService.deleteById(req.params.id);
                 res.json("Successfully deleted");
             }else{

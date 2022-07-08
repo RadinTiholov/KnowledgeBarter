@@ -66,6 +66,24 @@ router.put('/edit/:id', isAuth, async (req, res) => {
     }
 })
 
+router.delete('/delete/:id', isAuth, async (req, res) => {
+    try{
+        const course = await courseService.getOne(req.params.id).lean();
+        if(course){
+            if(course.owner == req.user._id){
+                await courseService.deleteById(req.params.id);
+                res.json("Successfully deleted");
+            }else{
+                throw new Error("Unauthorized to do this action");
+            }
+        }else{
+            throw new Error("Not found"); 
+        }
+    }catch(error){
+        res.status(400).json({message: error.message});
+    }
+})
+
 function ownsAll(data, owner){
     let ownsAllLessons = true;
         for (const lesson of data['lessons']) {
