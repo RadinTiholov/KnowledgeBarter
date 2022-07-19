@@ -85,3 +85,12 @@ Register Form */
     background-position: center;
     background-size: cover;
 }
+/*Lessons*/
+.backgound-layer-lessons{
+    background-image: url('../images/waves-lessons.svg');
+    aspect-ratio: 16/9;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
