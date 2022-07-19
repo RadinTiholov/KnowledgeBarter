@@ -4,11 +4,9 @@ html *
 {
     font-family: 'Open Sans', sans-serif;
 }
-#nav-bar{
-    background-color: #636EA7;
-}
-#lessons-display{
-    background-color: #636EA7;
+p{
+    font-size: 20px;
+    font-weight: 600;
 }
 .card-display{
     background-color: #f0ad4e;
@@ -24,6 +22,14 @@ html *
     columns: #fff;
     font-size: 30px !important;
 }
+.wave-image{
+    width: 100%;
+}
+.promo-title{
+    font-size: 70px;
+    font-weight: 600;
+    margin-top: 10px;
+}
 #banner{
     background-color: #f0ad4e;
     padding-top: 5%;
@@ -31,20 +37,14 @@ html *
 #points-banner{
     background-color: #f0ad4e;
 }
-.promo-title{
-    font-size: 70px;
-    font-weight: 600;
-    margin-top: 10px;
+#nav-bar{
+    background-color: #636EA7;
 }
-p{
-    font-size: 20px;
-    font-weight: 600;
+#lessons-display{
+    background-color: #636EA7;
 }
 #knowledge-image{
     margin-bottom: 30px;
-}
-.wave-image{
-    width: 100%;
 }
 
 /* Login Form */
@@ -70,6 +70,15 @@ Register Form */
 /* Details */
 .backgound-layer-details{
     background-image: url('../images/waves-details.svg');
+    aspect-ratio: 16/4;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+/*Profile*/
+.backgound-layer-profile{
+    background-image: url('../images/waves-profile.svg');
     aspect-ratio: 16/4;
     width: 100%;
     background-repeat: no-repeat;
