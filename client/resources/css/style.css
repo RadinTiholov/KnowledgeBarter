@@ -94,3 +94,11 @@ Register Form */
     background-position: center;
     background-size: cover;
 }
+/*Details lesson bought*/
+.card-display-details{
+    background-color: #636EA7;
+}
+.profile-comment{
+    height: 50px;
+    width: 50px;
+}
