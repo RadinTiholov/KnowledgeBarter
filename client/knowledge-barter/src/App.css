@@ -8,43 +8,8 @@ p{
     font-size: 20px;
     font-weight: 600;
 }
-.card-display{
-    background-color: #f0ad4e;
-}
-.navbar-nav li{
-    padding-left: 20px;
-}
-.navbar-nav li a{
-    font-weight: 600;
-    font-size: large;
-}
-.fa-bars{
-    columns: #fff;
-    font-size: 30px !important;
-}
 .wave-image{
     width: 100%;
-}
-.promo-title{
-    font-size: 70px;
-    font-weight: 600;
-    margin-top: 10px;
-}
-#banner{
-    background-color: #f0ad4e;
-    padding-top: 5%;
-}
-#points-banner{
-    background-color: #f0ad4e;
-}
-#nav-bar{
-    background-color: #636EA7;
-}
-#lessons-display{
-    background-color: #636EA7;
-}
-#knowledge-image{
-    margin-bottom: 30px;
 }
 
 /* Login Form */
