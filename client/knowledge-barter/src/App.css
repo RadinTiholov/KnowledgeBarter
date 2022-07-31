@@ -11,25 +11,7 @@ p{
 .wave-image{
     width: 100%;
 }
-/* 
-Register Form */
-.backgound-layer-register{
-    background-image: "url('%PUBLIC_URL%/images/waves-register.svg')";
-    aspect-ratio: 16/4;
-    width: 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-}
-/* Details */
-.backgound-layer-details{
-    background-image: "url('%PUBLIC_URL%/images/waves-details.svg')";
-    aspect-ratio: 16/4;
-    width: 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-}
+
 /*Profile*/
 .backgound-layer-profile{
     background-image: "url('%PUBLIC_URL%/images/waves-profile.svg')";
