@@ -2,6 +2,8 @@ import './App.css';
 import { CourseDetails } from './components/CourseDetails/CourseDetails';
 import { CourseDetailsBought } from './components/CourseDetailsBought/CourseDetailsBought';
 import { Courses } from './components/Courses/Courses';
+import { CreateCourse } from './components/CreateCourse/CreateCourse';
+import { CreateLesson } from './components/CreateLesson/CreateLesson';
 import { Footer } from './components/Footer/Footer';
 import { Header } from './components/Header/Header';
 import { Home } from './components/Home/Home';
@@ -25,7 +27,9 @@ function App() {
             {/* <Lessons/> */}
             {/* <Courses/> */}
             {/* <LessonDetailsBought/> */}
-            <CourseDetailsBought/>
+            {/* <CourseDetailsBought/> */}
+            {/* <CreateLesson/> */}
+            <CreateCourse/>
             <Footer/>
         </>
 
