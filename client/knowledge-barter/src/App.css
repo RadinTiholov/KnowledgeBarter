@@ -12,15 +12,6 @@ p{
     width: 100%;
 }
 
-/*Lessons*/
-.backgound-layer-lessons{
-    background-image: "url('%PUBLIC_URL%/images/waves-lessons.svg')";
-    aspect-ratio: 16/9;
-    width: 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-}
 /*Details lesson bought*/
 .card-display-details{
     background-color: #636EA7;
