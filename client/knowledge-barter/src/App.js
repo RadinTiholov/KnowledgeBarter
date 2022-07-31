@@ -4,6 +4,8 @@ import { CourseDetailsBought } from './components/CourseDetailsBought/CourseDeta
 import { Courses } from './components/Courses/Courses';
 import { CreateCourse } from './components/CreateCourse/CreateCourse';
 import { CreateLesson } from './components/CreateLesson/CreateLesson';
+import { EditCourse } from './components/EditCourse/EditCourse';
+import { EditLesson } from './components/EditLesson/EditLesson';
 import { Footer } from './components/Footer/Footer';
 import { Header } from './components/Header/Header';
 import { Home } from './components/Home/Home';
@@ -29,7 +31,9 @@ function App() {
             {/* <LessonDetailsBought/> */}
             {/* <CourseDetailsBought/> */}
             {/* <CreateLesson/> */}
-            <CreateCourse/>
+            {/* <CreateCourse/> */}
+            {/* <EditLesson/> */}
+            <EditCourse/>
             <Footer/>
         </>
 
