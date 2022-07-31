@@ -5,6 +5,7 @@ import { Header } from './components/Header/Header';
 import { Home } from './components/Home/Home';
 import { LessonDetails } from './components/LessonDetails/LessonDetails';
 import { Login } from './components/Login/Login';
+import { Profile } from './components/Profile/Profile';
 import { Register } from './components/Register/Register';
 
 function App() {
@@ -15,7 +16,8 @@ function App() {
             {/* <Login/> */}
             {/* <Register/> */}
             {/* <LessonDetails/> */}
-            <CourseDetails/>
+            {/* <CourseDetails/> */}
+            <Profile/>
             <Footer/>
         </>
 
