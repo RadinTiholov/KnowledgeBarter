@@ -1,4 +1,5 @@
 import './App.css';
+import { CourseDetails } from './components/CourseDetails/CourseDetails';
 import { Footer } from './components/Footer/Footer';
 import { Header } from './components/Header/Header';
 import { Home } from './components/Home/Home';
@@ -13,7 +14,8 @@ function App() {
             {/* <Home/>  */}
             {/* <Login/> */}
             {/* <Register/> */}
-            <LessonDetails/>
+            {/* <LessonDetails/> */}
+            <CourseDetails/>
             <Footer/>
         </>
 
