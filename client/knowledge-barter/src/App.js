@@ -1,4 +1,6 @@
 import './App.css';
+import { BoughtCourses } from './components/BoughtCourses/BoughtCourses';
+import { BoughtLessons } from './components/BoughtLessons/BoughtLessons';
 import { CourseDetails } from './components/CourseDetails/CourseDetails';
 import { CourseDetailsBought } from './components/CourseDetailsBought/CourseDetailsBought';
 import { Courses } from './components/Courses/Courses';
@@ -15,6 +17,8 @@ import { Lessons } from './components/Lessons/Lessons';
 import { Login } from './components/Login/Login';
 import { Profile } from './components/Profile/Profile';
 import { Register } from './components/Register/Register';
+import { YourCourses } from './components/YourCourses/YourCourses';
+import { YourLessons } from './components/YourLessons/YourLessons';
 
 function App() {
     return (
@@ -33,7 +37,11 @@ function App() {
             {/* <CreateLesson/> */}
             {/* <CreateCourse/> */}
             {/* <EditLesson/> */}
-            <EditCourse/>
+            {/* <EditCourse/> */}
+            {/* <BoughtLessons/> */}
+            {/* <BoughtCourses/> */}
+            {/* <YourCourses/> */}
+            <YourLessons/>
             <Footer/>
         </>
 
