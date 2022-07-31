@@ -11,17 +11,6 @@ p{
 .wave-image{
     width: 100%;
 }
-
-/* Login Form */
-
-.backgound-layer-login{
-    background-image: "url('%PUBLIC_URL%/images/waves-login.svg')";
-    aspect-ratio: 16/4;
-    width: 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-}
 /* 
 Register Form */
 .backgound-layer-register{
