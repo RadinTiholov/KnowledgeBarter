@@ -6,8 +6,9 @@ export const Home = () => {
     return (
         <>
             <Banner/>
-            <LessonsDisplay title = {'Highest rated lessons'}/>
-            <LessonsDisplay title = {'Most popular courses'}/>
+            {/* ToDo remove the parameter below*/}
+            <LessonsDisplay title = {'Highest rated lessons'} route = {'/lesson/details/1'}/>
+            <LessonsDisplay title = {'Most popular courses'} route = {'/course/details/1'}/>
             <PointsBanner/>
         </>
     )

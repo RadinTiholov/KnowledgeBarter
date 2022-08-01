@@ -10,10 +10,10 @@ export const LessonsDisplay = (props) => {
                         </div>
                     </div>
                     <div className="row gy-5">
-                        <Card/>
-                        <Card/>
-                        <Card/>
-                        <Card/>
+                        <Card route = {props.route}/>
+                        <Card route = {props.route}/>
+                        <Card route = {props.route}/>
+                        <Card route = {props.route}/>
                     </div>
                 </div>
             </section>

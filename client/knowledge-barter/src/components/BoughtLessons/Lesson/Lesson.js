@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 export const Lesson = () => {
     return (
         <div className="col">
@@ -10,13 +12,13 @@ export const Lesson = () => {
             />
             <div className="card-body">
                 <h5 className="card-title fw-bold">C# free course</h5>
-                <a
-                    href="/"
+                <Link
+                    to="/lesson/details/1"
                     className="btn"
                     style={{ backgroundColor: "#636EA7", color: "#fff" }}
                 >
                     Details
-                </a>
+                </Link>
             </div>
         </div>
     </div>  

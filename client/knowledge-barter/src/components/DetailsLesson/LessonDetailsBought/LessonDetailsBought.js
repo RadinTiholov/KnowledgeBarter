@@ -1,4 +1,5 @@
 import './LessonDetailsBought.css'
+import {Link} from 'react-router-dom'
 import background from '../../../images/waves-details.svg'
 import { Comment } from './Comment/Comment'
 import { Lesson } from './Lesson/Lesson'
@@ -32,13 +33,13 @@ export const LessonDetailsBought = () => {
             >
               Like
             </button>
-            <button
+            <Link
               className="btn btn-outline-warning btn fw-bold"
               style={{ backgroundColor: "#636EA7" }}
-              type="submit"
+              to='/lesson/edit/1'
             >
               Edit
-            </button>
+            </Link>
             <h5>Super ultra description here.......yoooaooaoaoa</h5>
           </div>
           <div className="text-center">

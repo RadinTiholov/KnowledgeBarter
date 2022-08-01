@@ -1,4 +1,6 @@
-export const Card = () => {
+import {Link} from 'react-router-dom';
+
+export const Card = (props) => {
     return (
         <div className="col">
                             <div className="card card-display border-0" style={{ width: "15rem" }}>
@@ -10,13 +12,13 @@ export const Card = () => {
                                 />
                                 <div className="card-body">
                                     <h5 className="card-title fw-bold">C# free course</h5>
-                                    <a
-                                        href="/"
+                                    <Link
+                                        to={props.route}
                                         className="btn"
                                         style={{ backgroundColor: "#636EA7", color: "#fff" }}
                                     >
                                         Details
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
