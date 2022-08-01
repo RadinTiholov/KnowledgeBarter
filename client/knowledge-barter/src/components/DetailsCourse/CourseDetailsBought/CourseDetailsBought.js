@@ -33,6 +33,13 @@ export const CourseDetailsBought = () => {
                                 >
                                     Like
                                 </button>
+                                <button
+                                    className="btn btn-outline-warning btn fw-bold"
+                                    style={{ backgroundColor: "#636EA7" }}
+                                    type="submit"
+                                >
+                                    Edit
+                                </button>
                                 <h5>Super ultra description here.......yoooaooaoaoa</h5>
                             </div>
                             <div className="text-center">
