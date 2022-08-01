@@ -41,7 +41,7 @@ router.post('/all', isAuth, async (req, res) => {
 router.get('/details/:id', async (req, res) => {
     try{
         const lessonRaw = await lessonService.getOne(req.params.id);
-        lessonRaw.views += 1;
+        lessonRaw.views++;
         lessonRaw.save();
 
         const lesson = await lessonService.getOne(req.params.id).lean();
