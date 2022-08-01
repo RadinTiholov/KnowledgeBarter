@@ -1,13 +1,14 @@
 import './Header.css'
 import logo from '../../images/logo.png'
+import {Link} from 'react-router-dom';
 export const Header = () => {
     return (
         <section id="nav-bar">
                 <nav className="navbar navbar-expand-lg">
                     <div className="container-fluid">
-                        <a className="navbar-brand" href="/">
+                        <Link className="navbar-brand" to="/">
                             <img src={logo} alt="" width={60} height={35} />
-                        </a>
+                        </Link>
                         <button
                             className="navbar-toggler"
                             type="button"
@@ -22,19 +23,19 @@ export const Header = () => {
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li className="nav-item">
-                                    <a className="nav-link active text-light" href="/">
+                                    <Link className="nav-link active text-light" to="/">
                                         Home
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link text-light" href="/">
+                                    <Link className="nav-link text-light" to="/lesson/all">
                                         Lessons
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link text-light" href="/">
+                                    <Link className="nav-link text-light" to="/course/all">
                                         Courses
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li className="nav-item">
                                     <form className="d-flex" role="search">
@@ -52,9 +53,9 @@ export const Header = () => {
                             </ul>
                             <ul className="navbar-nav me-auto-reverse mb-2 mb-lg-0">
                                 <li className="nav-item dropdown">
-                                    <a
+                                    <Link
                                         className="nav-link dropdown-toggle text-light"
-                                        href="/"
+                                        to="/lesson/create"
                                         style={{ fontWeight: 600, fontSize: "large", paddingRight: 20 }}
                                         id="navbarDropdown"
                                         role="button"
@@ -62,55 +63,32 @@ export const Header = () => {
                                         aria-expanded="false"
                                     >
                                         Create
-                                    </a>
+                                    </Link>
                                     <ul
                                         className="dropdown-menu text-light"
                                         aria-labelledby="navbarDropdown"
                                     >
                                         <li>
-                                            <a className="dropdown-item" href="/">
+                                            <Link className="dropdown-item" to="/lesson/create">
                                                 Lesson
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a className="dropdown-item" href="/">
+                                            <Link className="dropdown-item" to="/course/create">
                                                 Course
-                                            </a>
+                                            </Link>
                                         </li>
                                     </ul>
                                 </li>
-                                <li className="nav-item dropdown">
-                                    <a
-                                        className="nav-link dropdown-toggle text-light"
-                                        href="/"
-                                        style={{ fontWeight: 600, fontSize: "large", paddingRight: 20 }}
-                                        id="navbarDropdown"
-                                        role="button"
-                                        data-bs-toggle="dropdown"
-                                        aria-expanded="false"
-                                    >
+                                <li className="nav-item">
+                                    <Link className="nav-link text-light" to="/profile">
                                         KBPoints: 100
-                                    </a>
-                                    <ul
-                                        className="dropdown-menu text-light"
-                                        aria-labelledby="navbarDropdown"
-                                    >
-                                        <li>
-                                            <a className="dropdown-item" href="/">
-                                                Buy
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a className="dropdown-item" href="/">
-                                                Info
-                                            </a>
-                                        </li>
-                                    </ul>
+                                    </Link>
                                 </li>
                                 <li className="nav-item dropdown">
-                                    <a
+                                    <Link
                                         className="nav-link dropdown-toggle text-light"
-                                        href="/"
+                                        to="/profile"
                                         style={{ fontWeight: 600, fontSize: "large", paddingRight: 80 }}
                                         id="navbarDropdown"
                                         role="button"
@@ -118,45 +96,47 @@ export const Header = () => {
                                         aria-expanded="false"
                                     >
                                         Profile
-                                    </a>
+                                    </Link>
                                     <ul
                                         className="dropdown-menu text-light"
                                         aria-labelledby="navbarDropdown"
                                     >
                                         <li>
-                                            <a className="dropdown-item" href="/">
+                                            <Link className="dropdown-item" to="/profile">
                                                 Information
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a className="dropdown-item" href="/">
+                                            <Link className="dropdown-item" to="/lesson/yours">
                                                 Your Lessons
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a className="dropdown-item" href="/">
+                                            <Link className="dropdown-item" to="/course/yours">
                                                 Your Courses
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a className="dropdown-item" href="/">
+                                            <Link className="dropdown-item" to="/lesson/bought">
                                                 Bought Lessons
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a className="dropdown-item" href="/">
+                                            <Link className="dropdown-item" to="/course/bought">
                                                 Bought Courses
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a className="dropdown-item" href="/">
+                                            <Link className="dropdown-item" to="/liked">
                                                 Liked
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a className="dropdown-item" href="/">
-                                                Logout
-                                            </a>
+                                            <button className="dropdown-item">
+                                                <h5 style={{fontSize: '18px', fontWeight: 600}}>
+                                                    Logout
+                                                </h5>
+                                            </button>
                                         </li>
                                     </ul>
                                 </li>

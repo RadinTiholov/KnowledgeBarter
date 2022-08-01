@@ -22,6 +22,7 @@ import { YourCourses } from './components/YourCourses/YourCourses';
 import { YourLessons } from './components/YourLessons/YourLessons';
 import { DetailsLesson } from './components/DetailsLesson/DetailsLesson';
 import { DetailsCourse } from './components/DetailsCourse/DetailsCourse';
+import { Liked } from './components/Liked/Liked';
 
 function App() {
     return (
@@ -44,6 +45,7 @@ function App() {
                     <Route path='/course/details/:id' element={<DetailsCourse/>} />
                     <Route path='/course/bought' element={<BoughtCourses/>} />
                     <Route path='/course/yours' element={<YourCourses/>} />
+                    <Route path='/liked' element={<Liked/>} />
                 </Routes>
             <Footer/>
         </>
