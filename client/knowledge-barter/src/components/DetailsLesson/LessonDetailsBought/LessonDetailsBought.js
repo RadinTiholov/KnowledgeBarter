@@ -1,5 +1,5 @@
 import './LessonDetailsBought.css'
-import background from '../../images/waves-details.svg'
+import background from '../../../images/waves-details.svg'
 import { Comment } from './Comment/Comment'
 import { Lesson } from './Lesson/Lesson'
 

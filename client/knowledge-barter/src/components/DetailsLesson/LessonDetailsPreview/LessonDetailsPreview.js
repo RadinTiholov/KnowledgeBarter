@@ -1,7 +1,7 @@
-import './CourseDetails.css'
-import background from '../../images/waves-details.svg'
+import './LessonDetailsPreview.css'
+import background from '../../../images/waves-details.svg'
 
-export const CourseDetails = () => {
+export const LessonDetailsPreview = () => {
     return (
         <div style = {{backgroundImage: `url(${background})`}}  className="backgound-layer-details">
             {/* Login Form */}
@@ -10,10 +10,10 @@ export const CourseDetails = () => {
                     <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
                         <div className="card border-0 shadow rounded-3 my-5">
                             <div className="card-body p-4 p-sm-5">
-                                <h1 className="card-title text-center mb-5 fw-bold">Course Name</h1>
+                                <h1 className="card-title text-center mb-5 fw-bold">Lesson Name</h1>
                                 <img
                                     className="img-fluid rounded"
-                                    src="https://bit.ly/3PQ44Az"
+                                    src="https://realkm.com/wp-content/uploads/2020/02/teacher-cartoon-board-chalkboard-class-person-1449505-pxhere.com_.jpg"
                                     alt="Lesson Pic"
                                 />
                                 <hr className="my-4" />
