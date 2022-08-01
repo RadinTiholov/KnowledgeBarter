@@ -5,8 +5,8 @@ const userService =  require('../services/userService.js');
 const commentService =  require('../services/commentService.js');
 const { isAuth, isGuest } = require('../middlewares/authMiddleware.js');
 
-router.get('/highest', async (req, res) => {
-    const allLessons = await lessonService.getAll().lean().sort({'likes': -1});
+router.get('/popular', async (req, res) => {
+    const allLessons = await lessonService.getAll().lean().sort({'views': -1});
     res.json([allLessons[0], allLessons[1],allLessons[2],allLessons[3]]);
 })
 router.get('/all', async (req, res) => {

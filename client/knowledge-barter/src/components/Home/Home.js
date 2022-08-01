@@ -9,10 +9,10 @@ export const Home = () => {
     const [lessons, setLessons] = useState([]);
     const [courses, setCourses] = useState([]);
     useEffect(() => {
-        lessonsService.getHighestLessons()
+        lessonsService.getPopular()
             .then(res => setLessons(res))
             .catch(err => alert(err))
-        coursesService.getMostPopular()
+        coursesService.getHighest()
             .then(res => setCourses(res))
             .catch(err => alert(err))
     }, [])
@@ -20,8 +20,8 @@ export const Home = () => {
     return (
         <>
             <Banner/>
-            <LessonsDisplay title = {'Highest rated lessons'} route = {'/lesson/details/'} lessons = {lessons}/>
-            <LessonsDisplay title = {'Most popular courses'} route = {'/course/details/'} courses = {courses}/>
+            <LessonsDisplay title = {'Most popular lessons'} route = {'/lesson/details/'} lessons = {lessons}/>
+            <LessonsDisplay title = {'Highest rated courses'} route = {'/course/details/'} courses = {courses}/>
             <PointsBanner/>
         </>
     )
