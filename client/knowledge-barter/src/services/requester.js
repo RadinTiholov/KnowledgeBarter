@@ -1,26 +1,27 @@
 const request = async (method, url, data) => {
     try{
-        const user = localStorage.getItem('auth');
-        let auth = JSON.parse('{}');
-        if(user !== 'undefined' && user){
-            auth = JSON.parse(user);
-        }
+        // const user = localStorage.getItem('auth');
+        // let auth = JSON.parse('{}');
+        // if(user !== 'undefined' && user){
+        //     auth = JSON.parse(user);
+        // }
 
-        let headers = {}
+        // let headers = {}
 
-        if (auth.accessToken) {
-            headers['X-Authorization'] = auth.accessToken;
-        }
+        // if (auth.accessToken) {
+        //     headers['X-Authorization'] = auth.accessToken;
+        // }
 
         let beginningRequest;
         if(method === 'GET'){
-            beginningRequest = fetch(url,{ headers })
+            // beginningRequest = fetch(url,{ headers })
+            beginningRequest = fetch(url)
         }
         else{
             beginningRequest = fetch(url, {
                 method,
                 headers: {
-                    ...headers,
+                    // ...headers,
                     'content-type': 'application/json'
                 },
                 body: JSON.stringify(data)
