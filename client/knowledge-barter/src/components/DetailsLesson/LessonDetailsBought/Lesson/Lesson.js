@@ -1,6 +1,6 @@
 export const Lesson = () => {
     return (
-        <div class="row mb-2">
+        <div className="row mb-2">
             <div className="card card-display-details" style={{ width: "15rem" }}>
                 <img
                     src="https://picsum.photos/1500/700"
