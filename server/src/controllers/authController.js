@@ -24,7 +24,7 @@ router.post('/register', isGuest, async (req, res) => {
 
 router.get('/logout',isAuth, (req, res) => {
     authService.logout(req.user.token);
-    res.status(204).end();
+    res.status(200).json({message: "Logged out" });
 })
 
 module.exports = router;
