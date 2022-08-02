@@ -6,8 +6,13 @@ const commentService =  require('../services/commentService.js');
 const { isAuth, isGuest } = require('../middlewares/authMiddleware.js');
 
 router.get('/popular', async (req, res) => {
-    const allLessons = await lessonService.getAll().lean().sort({'views': -1});
-    res.json([allLessons[0], allLessons[1],allLessons[2],allLessons[3]]);
+    const lessons = await lessonService.getAll().lean().sort({'views': -1});
+    if(lessons.length >= 4){
+        res.json([lessons[0], lessons[1],lessons[2],lessons[3]]);
+    }
+    else{
+        res.json({});
+    }
 })
 router.get('/all', async (req, res) => {
     const allLessons = await lessonService.getAll().lean();

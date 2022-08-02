@@ -5,8 +5,12 @@ const userService = require('../services/userService.js');
 const { isAuth, isGuest } = require('../middlewares/authMiddleware.js');
 
 router.get('/highest', async (req, res) => {
-    const allCourses = await courseService.getAll().lean().sort({'likes': -1});
-    res.json([allCourses[0], allCourses[1],allCourses[2],allCourses[3]]);
+    const courses = await courseService.getAll().lean().sort({'likes': -1});
+    if(courses.length >= 4){
+        res.json([courses[0], courses[1],courses[2],courses[3]]);
+    }else{
+        res.json({})
+    }
 })
 router.get('/all', async  (req, res) => {
     const courses = await courseService.getAll().lean();
