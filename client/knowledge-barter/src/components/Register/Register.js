@@ -1,9 +1,42 @@
 import './Register.css'
 import background from '../../images/waves-register.svg'
+import { useContext, useState } from 'react';
+import { AuthContext } from '../../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import * as authService from '../../services/authService'
 
 export const Register = () => {
+    const {userLogin} = useContext(AuthContext)
+    const navigate = useNavigate();
+
+    const [inputData, setInputData] = useState({
+        email : "",
+        usename: "",
+        password: "",
+        rePassword: "",
+        profilePicture: ""
+    });
+
+    const onChange = (e) => {
+        setInputData(state => (
+            {...state, [e.target.name] : e.target.value}))
+    }
+    const onSubmit = (e) => {
+        e.preventDefault();
+        if(inputData.password === inputData.rePassword){
+            authService.register(inputData)
+            .then(res => {
+                userLogin(res);
+                navigate('/')
+            })
+            .catch(res => {
+                console.log(res)
+                navigate('/404')
+            })
+        }
+    }
     return (
-        <div style = {{backgroundImage: `url(${background})`}} className="backgound-layer-register">
+        <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-register">
             {/* Login Form */}
             <div className="container">
                 <div className="row">
@@ -13,13 +46,16 @@ export const Register = () => {
                                 <h5 className="card-title text-center mb-5 fw-bold fs-5">
                                     Register Form
                                 </h5>
-                                <form>
+                                <form onSubmit={onSubmit}>
                                     <div className="form-floating mb-3">
                                         <input
                                             type="email"
                                             className="form-control"
                                             id="email"
+                                            name="email"
                                             placeholder="name@example.com"
+                                            value={inputData.email}
+                                            onChange ={onChange}
                                         />
                                         <label htmlFor="email">Email address</label>
                                     </div>
@@ -34,10 +70,13 @@ export const Register = () => {
                                         <input
                                             type="username"
                                             className="form-control"
-                                            id="floatingInput"
+                                            id="username"
+                                            name="username"
                                             placeholder="ExAmPlE"
+                                            value={inputData.username}
+                                            onChange ={onChange}
                                         />
-                                        <label htmlFor="floatingInput">Username</label>
+                                        <label htmlFor="username">Username</label>
                                     </div>
                                     {/* Alert */}
                                     {/* <div class="alert alert-danger d-flex align-items-center" role="alert">
@@ -50,10 +89,13 @@ export const Register = () => {
                                         <input
                                             type="password"
                                             className="form-control"
-                                            id="floatingPassword"
+                                            id="password"
+                                            name="password"
                                             placeholder="Password"
+                                            value={inputData.password}
+                                            onChange ={onChange}
                                         />
-                                        <label htmlFor="floatingPassword">Password</label>
+                                        <label htmlFor="password">Password</label>
                                     </div>
                                     {/* Alert */}
                                     {/* <div class="alert alert-danger d-flex align-items-center" role="alert">
@@ -67,9 +109,32 @@ export const Register = () => {
                                             type="password"
                                             className="form-control"
                                             id="floatingRepeatPassword"
+                                            name="rePassword"
                                             placeholder="Repeat Password"
+                                            value={inputData.rePassword}
+                                            onChange ={onChange}
                                         />
                                         <label htmlFor="floatingRepeatPassword">Repeat Password</label>
+                                    </div>
+                                    {/* Alert */}
+                                    {/* <div class="alert alert-danger d-flex align-items-center" role="alert">
+                  <i class="fa-solid fa-triangle-exclamation me-2"></i>
+                  <div class="text-center">
+                    An example PASSWORD danger alert with an icon
+                  </div>
+                </div> */}
+                                    {/* profilePicture */}
+                                    <div className="form-floating mb-3">
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="profilePicture"
+                                            name="profilePicture"
+                                            placeholder="Profile Picture Link"
+                                            value={inputData.profilePicture}
+                                            onChange ={onChange}
+                                        />
+                                        <label htmlFor="profilePicture">Profile Picture Link</label>
                                     </div>
                                     {/* Alert */}
                                     {/* <div class="alert alert-danger d-flex align-items-center" role="alert">

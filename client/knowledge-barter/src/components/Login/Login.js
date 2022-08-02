@@ -22,7 +22,6 @@ export const Login = () => {
         e.preventDefault();
         authService.login(inputData)
             .then(res => {
-                console.log(res)
                 userLogin(res);
                 navigate('/')
             })
