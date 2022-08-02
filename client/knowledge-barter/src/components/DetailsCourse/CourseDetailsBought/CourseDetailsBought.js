@@ -12,7 +12,7 @@ export const CourseDetailsBought = () => {
                 <div className="row pt-5">
                     <div className="col-10">
                         <h1>Course title here</h1>
-                        <div className="embed-responsive embed-responsive-16by9">
+                        <div className="embed-responsive embed-responsive-16by9" autofocus>
                             <iframe
                                 className="embed-responsive-item"
                                 style={{ height: 600, width: 1000 }}

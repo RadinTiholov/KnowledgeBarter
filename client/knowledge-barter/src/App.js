@@ -27,6 +27,7 @@ import { LessonProvider } from './contexts/LessonContext';
 import { CourseProvider } from './contexts/CourseContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { Logout } from './components/Logout/Logout';
+import { NotFound } from './components/NotFound/NotFound';
 
 function App() {
     return (
@@ -54,6 +55,7 @@ function App() {
                             <Route path='/course/bought' element={<BoughtCourses />} />
                             <Route path='/course/yours' element={<YourCourses />} />
                             <Route path='/liked' element={<Liked />} />
+                            <Route path='/*' element={<NotFound />} />
                         </Routes>
                     </LessonProvider>
                 </CourseProvider>
