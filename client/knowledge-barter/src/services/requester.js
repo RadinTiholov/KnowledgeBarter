@@ -1,27 +1,26 @@
 const request = async (method, url, data) => {
     try{
-        // const user = localStorage.getItem('auth');
-        // let auth = JSON.parse('{}');
-        // if(user !== 'undefined' && user){
-        //     auth = JSON.parse(user);
-        // }
+        const user = localStorage.getItem('auth');
+        let auth = JSON.parse('{}');
+        if(user !== 'undefined' && user){
+            auth = JSON.parse(user);
+        }
 
-        // let headers = {}
+        let headers = {}
 
-        // if (auth.accessToken) {
-        //     headers['X-Authorization'] = auth.accessToken;
-        // }
+        if (auth?.accessToken) {
+            headers['X-Authorization'] = auth.accessToken;
+        }
 
         let beginningRequest;
         if(method === 'GET'){
-            // beginningRequest = fetch(url,{ headers })
-            beginningRequest = fetch(url)
+            beginningRequest = fetch(url,{ headers })
         }
         else{
             beginningRequest = fetch(url, {
                 method,
                 headers: {
-                    // ...headers,
+                    ...headers,
                     'content-type': 'application/json'
                 },
                 body: JSON.stringify(data)
@@ -29,7 +28,7 @@ const request = async (method, url, data) => {
         }
         const response = await beginningRequest;
         let result = null;
-        if(response.status === 200){ 
+        if(response.ok){ 
             result = await response.json();
         }
         return result;

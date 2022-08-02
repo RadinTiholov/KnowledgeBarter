@@ -2,10 +2,10 @@ import * as request from "./requester"
 const baseUrl = 'http://localhost:3030'
 
 const login = (data) => {
-    return request.post(`${baseUrl}/auth/login`)
+    return request.post(`${baseUrl}/auth/login`, data)
 }
 const register = (data) => {
-    return request.post(`${baseUrl}/auth/register`)
+    return request.post(`${baseUrl}/auth/register`, data)
 }
 const logout = () => {
     return request.get(`${baseUrl}/auth/logout`)

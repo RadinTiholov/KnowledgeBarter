@@ -18,10 +18,10 @@ export const Register = () => {
                                         <input
                                             type="email"
                                             className="form-control"
-                                            id="floatingInput"
+                                            id="email"
                                             placeholder="name@example.com"
                                         />
-                                        <label htmlFor="floatingInput">Email address</label>
+                                        <label htmlFor="email">Email address</label>
                                     </div>
                                     {/* Alert */}
                                     {/* <div class="alert alert-danger d-flex align-items-center" role="alert">
