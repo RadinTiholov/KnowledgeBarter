@@ -26,6 +26,7 @@ import { Liked } from './components/Liked/Liked';
 import { LessonProvider } from './contexts/LessonContext';
 import { CourseProvider } from './contexts/CourseContext';
 import { AuthProvider } from './contexts/AuthContext';
+import { Logout } from './components/Logout/Logout';
 
 function App() {
     return (
@@ -38,6 +39,7 @@ function App() {
                             <Route path='/' element={<Home />} />
                             <Route path='/login' element={<Login />} />
                             <Route path='/register' element={<Register />} />
+                            <Route path='/logout' element={<Logout />} />
                             <Route path='/profile' element={<Profile />} />
                             <Route path='/lesson/all' element={<Lessons />} />
                             <Route path='/lesson/create' element={<CreateLesson />} />

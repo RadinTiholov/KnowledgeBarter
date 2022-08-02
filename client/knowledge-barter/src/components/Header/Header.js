@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 export const Header = () => {
-    const { isAuthenticated } = useContext(AuthContext);
+    const { isAuthenticated , auth, logout} = useContext(AuthContext);
     return (
         <section id="nav-bar">
             <nav className="navbar navbar-expand-lg">
@@ -89,7 +89,7 @@ export const Header = () => {
                                     </li>
                                     <li className="nav-item">
                                         <Link className="nav-link text-light" to="/profile">
-                                            KBPoints: 100
+                                            KBPoints: {auth.kbpoints}
                                         </Link>
                                     </li>
                                     <li className="nav-item dropdown">
@@ -139,11 +139,9 @@ export const Header = () => {
                                                 </Link>
                                             </li>
                                             <li>
-                                                <button className="dropdown-item">
-                                                    <h5 style={{ fontSize: '18px', fontWeight: 600 }}>
-                                                        Logout
-                                                    </h5>
-                                                </button>
+                                            <Link className="dropdown-item" to="/logout">
+                                                    Logout
+                                                </Link>
                                             </li>
                                         </ul>
                                     </li>
