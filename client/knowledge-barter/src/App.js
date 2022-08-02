@@ -25,34 +25,37 @@ import { DetailsCourse } from './components/DetailsCourse/DetailsCourse';
 import { Liked } from './components/Liked/Liked';
 import { LessonProvider } from './contexts/LessonContext';
 import { CourseProvider } from './contexts/CourseContext';
+import { AuthProvider } from './contexts/AuthContext';
 
 function App() {
     return (
         <>
-            <Header />
-            <CourseProvider>
-                <LessonProvider>
-                    <Routes>
-                        <Route path='/' element={<Home />} />
-                        <Route path='/login' element={<Login />} />
-                        <Route path='/register' element={<Register />} />
-                        <Route path='/profile' element={<Profile />} />
-                        <Route path='/lesson/all' element={<Lessons />} />
-                        <Route path='/lesson/create' element={<CreateLesson />} />
-                        <Route path='/lesson/edit/:id' element={<EditLesson />} />
-                        <Route path='/lesson/details/:id' element={<DetailsLesson />} />
-                        <Route path='/lesson/bought' element={<BoughtLessons />} />
-                        <Route path='/lesson/yours' element={<YourLessons />} />
-                        <Route path='/course/all' element={<Courses />} />
-                        <Route path='/course/create' element={<CreateCourse />} />
-                        <Route path='/course/edit/:id' element={<EditCourse />} />
-                        <Route path='/course/details/:id' element={<DetailsCourse />} />
-                        <Route path='/course/bought' element={<BoughtCourses />} />
-                        <Route path='/course/yours' element={<YourCourses />} />
-                        <Route path='/liked' element={<Liked />} />
-                    </Routes>
-                </LessonProvider>
-            </CourseProvider>
+            <AuthProvider>
+                <Header />
+                <CourseProvider>
+                    <LessonProvider>
+                        <Routes>
+                            <Route path='/' element={<Home />} />
+                            <Route path='/login' element={<Login />} />
+                            <Route path='/register' element={<Register />} />
+                            <Route path='/profile' element={<Profile />} />
+                            <Route path='/lesson/all' element={<Lessons />} />
+                            <Route path='/lesson/create' element={<CreateLesson />} />
+                            <Route path='/lesson/edit/:id' element={<EditLesson />} />
+                            <Route path='/lesson/details/:id' element={<DetailsLesson />} />
+                            <Route path='/lesson/bought' element={<BoughtLessons />} />
+                            <Route path='/lesson/yours' element={<YourLessons />} />
+                            <Route path='/course/all' element={<Courses />} />
+                            <Route path='/course/create' element={<CreateCourse />} />
+                            <Route path='/course/edit/:id' element={<EditCourse />} />
+                            <Route path='/course/details/:id' element={<DetailsCourse />} />
+                            <Route path='/course/bought' element={<BoughtCourses />} />
+                            <Route path='/course/yours' element={<YourCourses />} />
+                            <Route path='/liked' element={<Liked />} />
+                        </Routes>
+                    </LessonProvider>
+                </CourseProvider>
+            </AuthProvider>
             <Footer />
         </>
 
