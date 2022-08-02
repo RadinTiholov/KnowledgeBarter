@@ -1,7 +1,11 @@
+import './Lessons.css'
 import background from '../../images/waves-lessons.svg'
 import { Lesson } from './Lesson/Lesson'
-import './Lessons.css'
+import {useContext} from 'react'
+import { LessonContext } from '../../contexts/LessonContext'
+
 export const Lessons = () => {
+    const {lessons} = useContext(LessonContext);
     return (
         <div style = {{backgroundImage: `url(${background})`}}className="backgound-layer-lessons">
             <div className="col text-xl-center">
@@ -10,20 +14,7 @@ export const Lessons = () => {
             <div className="container">
                 <div className="text-center">
                     <div className="row row-cols-5 gy-3 pb-5">
-                        <Lesson/>
-                        <Lesson/>
-                        <Lesson/>
-                        <Lesson/>
-                        <Lesson/>
-                        <Lesson/>
-                        <Lesson/>
-                        <Lesson/>
-                        <Lesson/>
-                        <Lesson/>
-                        <Lesson/>
-                        <Lesson/>
-                        <Lesson/>
-                        <Lesson/>
+                        {lessons.map(x => <Lesson {...x} key = {x._id}/>)}
                     </div>
                 </div>
             </div>
