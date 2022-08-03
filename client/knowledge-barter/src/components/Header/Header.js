@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 export const Header = () => {
-    const { isAuthenticated , auth, logout} = useContext(AuthContext);
+    const { isAuthenticated , auth} = useContext(AuthContext);
     return (
         <section id="nav-bar">
             <nav className="navbar navbar-expand-lg">
@@ -60,9 +60,9 @@ export const Header = () => {
                                 <>
 
                                     <li className="nav-item dropdown">
-                                        <Link
+                                        <a
                                             className="nav-link dropdown-toggle text-light"
-                                            to="/lesson/create"
+                                            href="/lesson/create"
                                             style={{ fontWeight: 600, fontSize: "large", paddingRight: 20 }}
                                             id="navbarDropdown"
                                             role="button"
@@ -70,7 +70,7 @@ export const Header = () => {
                                             aria-expanded="false"
                                         >
                                             Create
-                                        </Link>
+                                        </a>
                                         <ul
                                             className="dropdown-menu text-light"
                                             aria-labelledby="navbarDropdown"
@@ -93,9 +93,9 @@ export const Header = () => {
                                         </Link>
                                     </li>
                                     <li className="nav-item dropdown">
-                                        <Link
+                                        <a
                                             className="nav-link dropdown-toggle text-light"
-                                            to="/profile"
+                                            href="/profile"
                                             style={{ fontWeight: 600, fontSize: "large", paddingRight: 80 }}
                                             id="navbarDropdown"
                                             role="button"
@@ -103,7 +103,7 @@ export const Header = () => {
                                             aria-expanded="false"
                                         >
                                             Profile
-                                        </Link>
+                                        </a>
                                         <ul
                                             className="dropdown-menu text-light"
                                             aria-labelledby="navbarDropdown"

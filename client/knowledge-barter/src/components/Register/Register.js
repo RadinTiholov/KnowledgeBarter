@@ -11,7 +11,7 @@ export const Register = () => {
 
     const [inputData, setInputData] = useState({
         email : "",
-        usename: "",
+        username: "",
         password: "",
         rePassword: "",
         profilePicture: ""
