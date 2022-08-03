@@ -94,9 +94,9 @@ export const Login = () => {
                                     </div>
                                     {/* Alert */}
                                     {errors.password &&
-                                        <div class="alert alert-danger d-flex align-items-center" role="alert">
-                                            <i class="fa-solid fa-triangle-exclamation me-2"></i>
-                                            <div class="text-center">
+                                        <div className="alert alert-danger d-flex align-items-center" role="alert">
+                                            <i className="fa-solid fa-triangle-exclamation me-2"></i>
+                                            <div className="text-center">
                                                 Please enter a password.
                                             </div>
                                         </div>}
