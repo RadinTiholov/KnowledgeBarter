@@ -31,9 +31,12 @@ const request = async (method, url, data) => {
         if(response.ok){ 
             result = await response.json();
         }
+        else {
+            throw new Error(response.statusText);
+        }
         return result;
     }catch(err){
-        console.log(err);
+        throw new Error(err.message);
     }
 }
 
