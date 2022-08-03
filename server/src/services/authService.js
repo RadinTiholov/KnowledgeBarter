@@ -13,7 +13,7 @@ exports.register = async (data) => {
     const existing = await User.findOne({ email });
 
     if (existing) {
-        throw new Error('Email is taken');
+        throw new Error('Email or Username is taken');
     }
 
     const hashedPassword = await bcrypt.hash(password, SAULT_ROUNDS);
