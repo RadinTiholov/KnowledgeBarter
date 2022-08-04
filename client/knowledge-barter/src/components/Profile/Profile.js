@@ -1,17 +1,12 @@
 import './Profile.css'
 import background from '../../images/waves-profile.svg'
-import { useContext, useEffect, useState } from 'react'
+import { useUserInfo } from '../../hooks/useUserInfo'
+import { useContext } from 'react'
 import { AuthContext } from '../../contexts/AuthContext'
-import * as authService from '../../services/authService'
 
 export const Profile = () => {
+    const [fullUserInfo, setfullUserInfo] = useUserInfo({})
     const {auth} = useContext(AuthContext);
-    const [fullUserInfo, setfullUserInfo] = useState({})
-    useEffect(() => {
-        authService.getDetails(auth._id)
-            .then(res => setfullUserInfo(res))
-            .catch(err => alert(err))
-    }, [])
     return (
         <div style = {{backgroundImage: `url(${background})`}}  className="backgound-layer-profile">
             {/* Profile page */}

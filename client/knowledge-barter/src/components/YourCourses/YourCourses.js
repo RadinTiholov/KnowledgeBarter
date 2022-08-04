@@ -1,7 +1,9 @@
+import { useCollectionInfo } from '../../hooks/useCollectionInfo';
 import background from '../../images/waves-lessons.svg'
 import { Course } from './Course/Course'
 import './YourCourses.css'
 export const YourCourses = () => {
+    const [collection] = useCollectionInfo('ownCourses');
     return (
         <div style = {{backgroundImage: `url(${background})`}}className="backgound-layer-courses">
             <div className="col text-xl-center">
@@ -10,20 +12,7 @@ export const YourCourses = () => {
             <div className="container">
                 <div className="text-center">
                     <div className="row row-cols-5 gy-3 pb-5">
-                        <Course/>
-                        <Course/>
-                        <Course/>
-                        <Course/>
-                        <Course/>
-                        <Course/>
-                        <Course/>
-                        <Course/>
-                        <Course/>
-                        <Course/>
-                        <Course/>
-                        <Course/>
-                        <Course/>
-                        <Course/>
+                        {collection.length > 0 ? collection?.map(x => <Course {...x} key= {x._id}/>): <p className='text-center'>No courses yet.</p>}
                     </div>
                 </div>
             </div>
