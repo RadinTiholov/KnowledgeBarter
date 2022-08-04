@@ -13,8 +13,8 @@ export const Banner = () => {
                             <h1 style={{ marginLeft: 250, fontSize: 70, fontWeight: 600 }}>
                                 Barter
                             </h1>
-                            <p>Learn new things by sharing things you know.</p>
-                            <p style={{ marginLeft: 250 }}>Barter your knowledge.</p>
+                            <p>Learn new things by sharing knowledge you have.</p>
+                            <p style={{ marginLeft: 340 }}>Barter your knowledge.</p>
                             <form className="d-flex" role="search">
                                 <input
                                     className="form-control me-1 text-light"

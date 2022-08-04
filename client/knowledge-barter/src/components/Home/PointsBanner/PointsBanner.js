@@ -19,8 +19,11 @@ export const PointsBanner = () => {
                         <p style={{ fontSize: "200%", marginTop: 150 }}>
                             With KBP you can unlock lessons and courses.
                         </p>
+                        <p style={{ fontSize: "200%"}}>
+                            They are your key to the unlimited knowledge.
+                        </p>
                         <p style={{ fontSize: "200%" }}>
-                            You can earn some by creating lessons or courses
+                            You can earn some by creating content.
                         </p>
                         <p />
                     </div>
