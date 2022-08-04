@@ -12,13 +12,21 @@ export const Card = (props) => {
                                 />
                                 <div className="card-body">
                                     <h5 className="card-title fw-bold">{props.title}</h5>
+                                    {props.route === '/course/details/' ? <Link
+                                        to={props.route + props._id + '/' + props.lessons[0]}
+                                        className="btn"
+                                        style={{ backgroundColor: "#636EA7", color: "#fff" }}
+                                    >
+                                        Details
+                                    </Link> :
                                     <Link
                                         to={props.route + props._id}
                                         className="btn"
                                         style={{ backgroundColor: "#636EA7", color: "#fff" }}
                                     >
                                         Details
-                                    </Link>
+                                    </Link>}
+                                    
                                 </div>
                             </div>
                         </div>

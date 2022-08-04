@@ -11,22 +11,22 @@ export const CourseDetailsBought = (props) => {
             <div className="container">
                 <div className="row pt-5">
                     <div className="col-10">
-                        <h1>{props.course.title}</h1>
+                    <h1>{props.course.title}</h1>
                         <div className="embed-responsive embed-responsive-16by9" autoFocus>
                             <iframe
                                 className="embed-responsive-item"
                                 style={{ height: 600, width: 1000 }}
-                                src="https://www.youtube.com/embed/PjGkVCAo8Fw"
+                                src={props.lesson.video}
                                 allowFullScreen=""
                             />
                         </div>
                         <div className="card card-display my-3" style={{ width: 1000 }}>
                             <div className="mx-3">
-                                <h1>Lesson Title here</h1>
+                                <h1>{props.lesson.title}</h1>
                                 <i className="fa-solid fa-thumbs-up fa-2xl" />
-                                <span className="fw-bold">: 300</span>
+                                <span className="fw-bold">: {props.lesson.likes}</span>
                                 <i className="fa-solid fa-eye fa-2xl" />
-                                <span className="fw-bold">: 1200</span>
+                                <span className="fw-bold">: {props.lesson.views}</span>
                                 <button
                                     className="btn btn-outline-warning btn fw-bold"
                                     style={{ backgroundColor: "#636EA7" }}
@@ -37,24 +37,21 @@ export const CourseDetailsBought = (props) => {
                                 <Link
                                     className="btn btn-outline-warning btn fw-bold"
                                     style={{ backgroundColor: "#636EA7" }}
-                                    to='/course/edit/1'
+                                    to={'/lesson/edit/' + props.course._id}
                                 >
                                     Edit
                                 </Link>
-                                <h5>Super ultra description here.......yoooaooaoaoa</h5>
+                                <h5>{props.lesson.description}</h5>
                             </div>
                             <div className="text-center">
                                 <h2>Information</h2>
                                 <h5>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore
-                                    repellat a debitis tempore maiores molestias perferendis
-                                    praesentium tenetur enim odio, nostrum iste facere, modi numquam
-                                    officia cumque aspernatur illum molestiae.
+                                    {props.lesson.article}
                                 </h5>
                             </div>
                             <h2 className="text-center">Comments</h2>
                             {/* Comment form */}
-                            <form action="#">
+                            <form>
                                 <div className="form-outline w-100 mx-5">
                                     <textarea
                                         className="form-control"
@@ -71,15 +68,12 @@ export const CourseDetailsBought = (props) => {
                                     </button>
                                 </div>
                             </form>
-                            <Comment />
-                            <Comment />
-                            <Comment />
-                            <Comment />
+                            {props.lesson.comments?.map(x => <Comment key = {x._id} {...x} commentedUsers = {props.commentedUsers.filter(y => y._id === x.owner)}/>) }
                         </div>
                     </div>
                     <div className="col-2">
                         <p>Lessons</p>
-                        {props.course?.lessons?.map(x => <Lesson key= {x._id} {...x}/>)}
+                        {props.course?.lessons?.map(x => <Lesson key= {x._id} {...x} courseId = {props.course._id}/>)}
                     </div>
                 </div>
             </div>
