@@ -36,7 +36,7 @@ export const LessonDetailsBought = (props) => {
                                 <Link
                                     className="btn btn-outline-warning btn fw-bold"
                                     style={{ backgroundColor: "#636EA7" }}
-                                    to='/lesson/edit/1'
+                                    to={'/lesson/edit/' + props.lesson._id}
                                 >
                                     Edit
                                 </Link>
