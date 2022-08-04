@@ -52,7 +52,7 @@ router.post('/all', isAuth, async (req, res) => {
 
 router.get('/details/:id', async (req, res) => {
     try{
-        const course = await courseService.getOne(req.params.id).lean();
+        const course = await courseService.getOne(req.params.id).populate('lessons').lean();
         res.json(course);
 
     }catch(error){

@@ -2,7 +2,6 @@ import './CourseDetailsPreview.css'
 import background from '../../../images/waves-details.svg'
 
 export const CourseDetailsPreview = (props) => {
-    console.log(props)
     return (
         <div style = {{backgroundImage: `url(${background})`}}  className="backgound-layer-details">
             {/* Login Form */}

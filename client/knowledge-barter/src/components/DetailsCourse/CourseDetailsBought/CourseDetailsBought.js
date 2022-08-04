@@ -4,14 +4,14 @@ import background from '../../../images/waves-details.svg'
 import { Comment } from './Comment/Comment'
 import { Lesson } from './Lesson/Lesson'
 
-export const CourseDetailsBought = () => {
+export const CourseDetailsBought = (props) => {
     return (
         <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-details">
             {/* Login Form */}
             <div className="container">
                 <div className="row pt-5">
                     <div className="col-10">
-                        <h1>Course title here</h1>
+                        <h1>{props.course.title}</h1>
                         <div className="embed-responsive embed-responsive-16by9" autoFocus>
                             <iframe
                                 className="embed-responsive-item"
@@ -79,10 +79,7 @@ export const CourseDetailsBought = () => {
                     </div>
                     <div className="col-2">
                         <p>Lessons</p>
-                        <Lesson />
-                        <Lesson />
-                        <Lesson />
-                        <Lesson />
+                        {props.course?.lessons?.map(x => <Lesson key= {x._id} {...x}/>)}
                     </div>
                 </div>
             </div>
