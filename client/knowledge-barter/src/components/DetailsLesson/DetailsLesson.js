@@ -1,4 +1,3 @@
-import { useEffect, useState} from "react"
 import { useParams } from 'react-router-dom';
 import { useBoughtLesson } from "../../hooks/useBoughtLesson";
 import { useLessonsWithUser } from "../../hooks/useLessonsWithUser";
@@ -10,7 +9,7 @@ import { LessonDetailsPreview } from "./LessonDetailsPreview/LessonDetailsPrevie
 export const DetailsLesson = () => {
     const {id} = useParams();
 	const {lesson, owner, commentedUsers} = useLessonsWithUser(id);
-    const [isOwner] = useOwner(id);
+    const [isOwner] = useOwner(id, true);
     const [isBought] = useBoughtLesson(id);
     return (
         <>

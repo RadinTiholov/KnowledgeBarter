@@ -1,7 +1,8 @@
 import './CourseDetailsPreview.css'
 import background from '../../../images/waves-details.svg'
 
-export const CourseDetailsPreview = () => {
+export const CourseDetailsPreview = (props) => {
+    console.log(props)
     return (
         <div style = {{backgroundImage: `url(${background})`}}  className="backgound-layer-details">
             {/* Login Form */}
@@ -10,16 +11,16 @@ export const CourseDetailsPreview = () => {
                     <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
                         <div className="card border-0 shadow rounded-3 my-5">
                             <div className="card-body p-4 p-sm-5">
-                                <h1 className="card-title text-center mb-5 fw-bold">Course Name</h1>
+                                <h1 className="card-title text-center mb-5 fw-bold">{props.course.title}</h1>
                                 <img
                                     className="img-fluid rounded"
-                                    src="https://bit.ly/3PQ44Az"
+                                    src={props.course.tumbnail}
                                     alt="Lesson Pic"
                                 />
                                 <hr className="my-4" />
-                                <p>Some description here about the lesson or the course.</p>
+                                <p>{props.course.description}</p>
                                 <hr className="my-1" />
-                                <p>Creator: Radin Tiholov</p>
+                                <p>Creator: {props.owner.username}</p>
                                 <hr className="my-1" />
                                 <div className="container">
                                     <div className="row">
@@ -77,6 +78,5 @@ export const CourseDetailsPreview = () => {
                 </div>
             </div>
         </div>
-
     )
 }

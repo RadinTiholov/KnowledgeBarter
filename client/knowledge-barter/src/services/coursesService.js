@@ -6,8 +6,11 @@ const getAll = () => {
 const getHighest = () => {
     return request.get(`${baseUrl}/course/highest`)
 }
-
+const getDetails = (id) => {
+    return request.get(`${baseUrl}/course/details/` + id)
+}
 export {
     getAll,
-    getHighest
+    getHighest,
+    getDetails
 }
