@@ -3,9 +3,7 @@ import {AuthContext} from '../contexts/AuthContext'
 import * as lessonsService from '../services/lessonsService'
 export const useOwner = (id) => {
     const {auth} = useContext(AuthContext)
-    const [isOwner, setIsOwner] = useState(() => {
-        
-    });
+    const [isOwner, setIsOwner] = useState(false);
 
     useEffect(() => {
         lessonsService.getDetails(id)
