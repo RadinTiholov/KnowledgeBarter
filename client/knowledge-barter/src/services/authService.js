@@ -10,8 +10,12 @@ const register = (data) => {
 const logout = () => {
     return request.get(`${baseUrl}/auth/logout`)
 }
+const getDetails = (id) => {
+    return request.get(`${baseUrl}/auth/` + id)
+}
 export{
     login,
     register,
-    logout
+    logout,
+    getDetails
 }

@@ -23,16 +23,28 @@ router.post('/register', isGuest, async (req, res) => {
     }
 })
 
-router.get('/logout',isAuth, (req, res) => {
+router.get('/logout', isAuth, (req, res) => {
     authService.logout(req.user.token);
-    res.status(200).json({message: "Logged out" });
+    res.status(200).json({ message: "Logged out" });
 })
 router.get('/:id', async (req, res) => {
-    try{
+    try {
         const user = await userService.getUser(req.params.id).lean();
-        res.json(user);
-    }catch(error){
-        res.status(400).json({message: "Bad request"})
+        res.json({
+            boughtCourses: user.boughtCourses,
+            boughtLessons: user.boughtLessons,
+            email: user.email,
+            kbpoints: user.kbpoint,
+            likedCourses: user.likedCourses,
+            likedLessons: user.likedLessons,
+            ownCourses: user.ownCourses,
+            ownLessons: user.ownLessons,
+            profilePicture: user.profilePicture,
+            username: user.username,
+            _id: user._id
+        });
+    } catch (error) {
+        res.status(400).json({ message: "Bad request" })
     }
 })
 

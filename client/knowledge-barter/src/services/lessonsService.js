@@ -6,8 +6,12 @@ const getAll = () => {
 const getPopular = () => {
     return request.get(`${baseUrl}/lesson/popular`)
 }
+const getDetails = (id) => {
+    return request.get(`${baseUrl}/lesson/details/` + id)
+}
 
 export {
     getAll,
-    getPopular
+    getPopular,
+    getDetails
 }

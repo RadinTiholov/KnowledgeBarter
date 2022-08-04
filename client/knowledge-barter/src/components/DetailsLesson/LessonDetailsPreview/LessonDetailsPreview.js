@@ -1,7 +1,7 @@
 import './LessonDetailsPreview.css'
 import background from '../../../images/waves-details.svg'
 
-export const LessonDetailsPreview = () => {
+export const LessonDetailsPreview = (props) => {
     return (
         <div style = {{backgroundImage: `url(${background})`}}  className="backgound-layer-details">
             {/* Login Form */}
@@ -10,16 +10,16 @@ export const LessonDetailsPreview = () => {
                     <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
                         <div className="card border-0 shadow rounded-3 my-5">
                             <div className="card-body p-4 p-sm-5">
-                                <h1 className="card-title text-center mb-5 fw-bold">Lesson Name</h1>
+                                <h1 className="card-title text-center mb-5 fw-bold">{props.lesson.title}</h1>
                                 <img
                                     className="img-fluid rounded"
-                                    src="https://realkm.com/wp-content/uploads/2020/02/teacher-cartoon-board-chalkboard-class-person-1449505-pxhere.com_.jpg"
+                                    src={props.lesson.tumbnail}
                                     alt="Lesson Pic"
                                 />
                                 <hr className="my-4" />
-                                <p>Some description here about the lesson or the course.</p>
+                                <p>{props.lesson.description}</p>
                                 <hr className="my-1" />
-                                <p>Creator: Radin Tiholov</p>
+                                <p>Creator: {props.owner.username}</p>
                                 <hr className="my-1" />
                                 <div className="container">
                                     <div className="row">
@@ -27,17 +27,17 @@ export const LessonDetailsPreview = () => {
                                             <div className="row">
                                                 <div className="col">
                                                     <i className="fa-solid fa-thumbs-up fa-2xl  mt-5" />
-                                                    <span className="fw-bold">: 300</span>
+                                                    <span className="fw-bold">: {props.lesson.likes}</span>
                                                 </div>
                                                 <div className="col">
                                                     <i className="fa-solid fa-eye fa-2xl  mt-5" />
-                                                    <span className="fw-bold">: 1200</span>
+                                                    <span className="fw-bold">: {props.lesson.views}</span>
                                                 </div>
                                             </div>
                                             <div className="row">
                                                 <div className="col">
                                                     <i className="fa-solid fa-lightbulb fa-2xl  mt-5" />
-                                                    <span className="fw-bold">: 200$</span>
+                                                    <span className="fw-bold">: {props.lesson.price}$</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -65,7 +65,7 @@ export const LessonDetailsPreview = () => {
                                                     }}
                                                     type="submit"
                                                 >
-                                                    Buy (200)
+                                                    Buy ({props.lesson.price})
                                                 </button>
                                             </div>
                                         </div>
