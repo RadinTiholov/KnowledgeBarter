@@ -1,7 +1,17 @@
 import './Profile.css'
 import background from '../../images/waves-profile.svg'
+import { useContext, useEffect, useState } from 'react'
+import { AuthContext } from '../../contexts/AuthContext'
+import * as authService from '../../services/authService'
 
 export const Profile = () => {
+    const {auth} = useContext(AuthContext);
+    const [fullUserInfo, setfullUserInfo] = useState({})
+    useEffect(() => {
+        authService.getDetails(auth._id)
+            .then(res => setfullUserInfo(res))
+            .catch(err => alert(err))
+    }, [])
     return (
         <div style = {{backgroundImage: `url(${background})`}}  className="backgound-layer-profile">
             {/* Profile page */}
@@ -17,16 +27,16 @@ export const Profile = () => {
                                     <img
                                         className="img-fluid rounded-circle"
                                         style={{ width: 300, height: 300 }}
-                                        src="https://avatars.githubusercontent.com/u/74610360?v=4"
+                                        src={fullUserInfo.profilePicture}
                                         alt="Lesson Pic"
                                     />
                                 </div>
                                 <hr className="my-4" />
-                                <h3 className="card-title text-center ">Username: RadinTiholov</h3>
+                                <h3 className="card-title text-center ">Username: {fullUserInfo.username}</h3>
                                 <h3 className="card-title text-center ">
-                                    Email: radin.tiholov@mail.bg
+                                    Email: {fullUserInfo.email}
                                 </h3>
-                                <h3 className="card-title text-center ">KBPoints: 223</h3>
+                                <h3 className="card-title text-center ">KBPoints: {auth.kbpoints}</h3>
                             </div>
                         </div>
                     </div>
