@@ -49,7 +49,7 @@ router.get('/details/:id', async (req, res) => {
         lessonRaw.views++;
         lessonRaw.save();
 
-        const lesson = await lessonService.getOne(req.params.id).lean();
+        const lesson = await lessonService.getOne(req.params.id).populate('comments').lean();
         res.json(lesson);
     }catch(error){
         res.status(400).json({message: "Bad request"})
