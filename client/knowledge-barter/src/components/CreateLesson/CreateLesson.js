@@ -233,6 +233,10 @@ export const CreateLesson = () => {
                                         The length of the description must be a minimum of 50 and a maximum of 1000 characters.
                                         </div>
                                     </div>}
+                                    {/* Error message */}
+                                    {error.active === true ? <div className="alert alert-danger fade show mt-3">
+                                        <strong>Error!</strong> {error.message}
+                                    </div>: null}
                                     <div className="d-grid">
                                         <button
                                             className="btn btn-outline-warning"
