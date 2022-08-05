@@ -1,9 +1,50 @@
 import './CreateLesson.css'
 import background from '../../images/waves-login.svg'
+import { useContext, useState } from 'react';
+import * as lessonsService from '../../services/lessonsService'
+import { useNavigate } from 'react-router-dom';
+import { LessonContext } from '../../contexts/LessonContext';
 
 export const CreateLesson = () => {
+    const [inputData, setInputData] = useState({
+        title: "",
+        description: "",
+        tumbnail: "",
+        article: "",
+        video: "",
+        tags: [],
+        resources: "",
+    });
+    const navigate = useNavigate();
+    const {create} = useContext(LessonContext)
+
+    const onChange = (e) => {
+        setInputData(state => {
+            if (e.target.name === 'tags') {
+                const newValue = { ...state };
+                newValue.tags = e.target.value.split(',');
+                return newValue;
+            }
+            else {
+                return { ...state, [e.target.name]: e.target.value }
+            }
+        })
+    }
+    const onSubmit = (e) => {
+        e.preventDefault();
+        console.log(inputData)
+
+        lessonsService.create(inputData)
+            .then(res => {
+                create(res);
+                navigate('/lesson/details/' + res._id)
+            })
+            .catch(err => {
+                //setError({active: true, message: res.message})
+            })
+    }
     return (
-        <div style = {{backgroundImage: `url(${background})`}} className="backgound-layer-create">
+        <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-create">
             {/* Login Form */}
             <div className="container">
                 <div className="row">
@@ -13,7 +54,7 @@ export const CreateLesson = () => {
                                 <h5 className="card-title text-center mb-5 fw-bold fs-5">
                                     Create Lesson
                                 </h5>
-                                <form>
+                                <form onSubmit={onSubmit}>
                                     <div className="form-floating mb-3">
                                         <input
                                             type="text"
@@ -21,11 +62,13 @@ export const CreateLesson = () => {
                                             name="title"
                                             id="title"
                                             placeholder="Some title"
+                                            value={inputData.title}
+                                            onChange={onChange}
                                         />
                                         <label htmlFor="title">Title</label>
                                     </div>
                                     {/* Alert */}
-                                    <div
+                                    {/* <div
                                         className="alert alert-danger d-flex align-items-center"
                                         role="alert"
                                     >
@@ -33,7 +76,7 @@ export const CreateLesson = () => {
                                         <div className="text-center">
                                             An example Title danger alert with an icon
                                         </div>
-                                    </div>
+                                    </div> */}
                                     <div className="form-floating mb-3">
                                         <input
                                             type="text"
@@ -41,6 +84,8 @@ export const CreateLesson = () => {
                                             name="description"
                                             id="description"
                                             placeholder="Some description"
+                                            value={inputData.description}
+                                            onChange={onChange}
                                         />
                                         <label htmlFor="description">Description</label>
                                     </div>
@@ -58,6 +103,8 @@ export const CreateLesson = () => {
                                             name="video"
                                             id="video"
                                             placeholder="Some link"
+                                            value={inputData.video}
+                                            onChange={onChange}
                                         />
                                         <label htmlFor="video">Video Link</label>
                                     </div>
@@ -72,11 +119,13 @@ export const CreateLesson = () => {
                                         <input
                                             type="text"
                                             className="form-control"
-                                            name="thumbnail"
-                                            id="thumbnail"
+                                            name="tumbnail"
+                                            id="tumbnail"
                                             placeholder="Some link"
+                                            value={inputData.tumbnail}
+                                            onChange={onChange}
                                         />
-                                        <label htmlFor="thumbnail">Thumbnail Link</label>
+                                        <label htmlFor="tumbnail">Thumbnail Link</label>
                                     </div>
                                     {/* Alert */}
                                     {/* <div class="alert alert-danger d-flex align-items-center" role="alert">
@@ -92,8 +141,10 @@ export const CreateLesson = () => {
                                             name="tags"
                                             id="tags"
                                             placeholder="Tags"
+                                            value={inputData.tags}
+                                            onChange={onChange}
                                         />
-                                        <label htmlFor="tags">Tags (split them by space)</label>
+                                        <label htmlFor="tags">Tags (split them by comma(,))</label>
                                     </div>
                                     {/* Alert */}
                                     {/* <div class="alert alert-danger d-flex align-items-center" role="alert">
@@ -126,7 +177,8 @@ export const CreateLesson = () => {
                                             name="article"
                                             id="article"
                                             rows={10}
-                                            defaultValue={""}
+                                            value={inputData.article}
+                                            onChange={onChange}
                                         />
                                         <label htmlFor="article">Article</label>
                                     </div>

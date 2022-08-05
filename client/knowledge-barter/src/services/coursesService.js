@@ -9,8 +9,12 @@ const getHighest = () => {
 const getDetails = (id) => {
     return request.get(`${baseUrl}/course/details/` + id)
 }
+const create = (data) => {
+    return request.post(`${baseUrl}/course/all`, data)
+}
 export {
     getAll,
     getHighest,
-    getDetails
+    getDetails,
+    create
 }

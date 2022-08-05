@@ -9,9 +9,13 @@ const getPopular = () => {
 const getDetails = (id) => {
     return request.get(`${baseUrl}/lesson/details/` + id)
 }
+const create = (data) => {
+    return request.post(`${baseUrl}/lesson/all`, data)
+}
 
 export {
     getAll,
     getPopular,
-    getDetails
+    getDetails,
+    create
 }

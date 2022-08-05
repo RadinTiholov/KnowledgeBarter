@@ -11,9 +11,11 @@ export const CourseProvider = ({children}) => {
             .then(res => setCourses(res))
             .catch(err => alert(err))
     }, [])
-
+    const create = (course) => {
+        setCourses(state => [...state, course])
+    }
     return (
-        <CourseContext.Provider value={{courses}}>
+        <CourseContext.Provider value={{courses, create}}>
             {children}
         </CourseContext.Provider>  
     );

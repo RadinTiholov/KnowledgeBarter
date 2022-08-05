@@ -11,9 +11,11 @@ export const LessonProvider = ({children}) => {
             .then(res => setLessons(res))
             .catch(err => alert(err))
     }, [])
-
+    const create = (lesson) => {
+        setLessons(state => [...state, lesson])
+    }
     return (
-        <LessonContext.Provider value={{lessons}}>
+        <LessonContext.Provider value={{lessons, create}}>
             {children}
         </LessonContext.Provider>  
     );
