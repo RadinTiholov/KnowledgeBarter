@@ -4,6 +4,7 @@ import { useContext, useState } from 'react';
 import * as lessonsService from '../../services/lessonsService'
 import { useNavigate } from 'react-router-dom';
 import { LessonContext } from '../../contexts/LessonContext';
+import { AuthContext } from '../../contexts/AuthContext';
 
 export const CreateLesson = () => {
     const [inputData, setInputData] = useState({
@@ -17,6 +18,7 @@ export const CreateLesson = () => {
     });
     const navigate = useNavigate();
     const {create} = useContext(LessonContext)
+    const {updatePoints} = useContext(AuthContext);
     const [errors, setErrors] = useState({
         title: false,
         description: false,
@@ -45,6 +47,7 @@ export const CreateLesson = () => {
         lessonsService.create(inputData)
             .then(res => {
                 create(res);
+                updatePoints();
                 navigate('/lesson/details/' + res._id)
             })
             .catch(err => {
@@ -88,7 +91,7 @@ export const CreateLesson = () => {
                                             placeholder="Some title"
                                             value={inputData.title}
                                             onChange={onChange}
-                                            onBlur = {(e) => minMaxValidator(e, 3, 30)}
+                                            onBlur = {(e) => minMaxValidator(e, 3, 20)}
                                         />
                                         <label htmlFor="title">Title</label>
                                     </div>
@@ -100,7 +103,7 @@ export const CreateLesson = () => {
                                     >
                                         <i className="fa-solid fa-triangle-exclamation me-2" />
                                         <div className="text-center">
-                                            The length of the title must be a minimum of 3 and a maximum of 30 characters.
+                                            The length of the title must be a minimum of 3 and a maximum of 20 characters.
                                         </div>
                                     </div>}
                                     <div className="form-floating mb-3">

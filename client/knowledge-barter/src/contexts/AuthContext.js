@@ -9,13 +9,20 @@ export const AuthProvider = ({children}) => {
     const userLogin = (authData) => {
         setAuth(authData);
     };
+    const updatePoints = () => {
+        setAuth(state => {
+            let temp = {...state}  // creating copy of state variable jasper
+            temp.kbpoints = state.kbpoints + 100;                 // update the name property, assign a new value                 
+            return temp 
+        });
+    };
 
     const userLogout = () => {
         setAuth(null);
     };
 
     return (
-        <AuthContext.Provider value={{auth, userLogin, userLogout, isAuthenticated: !!auth?.accessToken}}>
+        <AuthContext.Provider value={{auth, userLogin, userLogout,updatePoints, isAuthenticated: !!auth?.accessToken}}>
             {children}
         </AuthContext.Provider>  
     );

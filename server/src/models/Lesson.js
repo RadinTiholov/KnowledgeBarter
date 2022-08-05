@@ -5,7 +5,7 @@ const lessonSchema = new mongoose.Schema({
         type: String,
         required: true,
         minLenght: 3,
-        maxLenght: 30
+        maxLenght: 20
     },
     description: {
         type: String,
