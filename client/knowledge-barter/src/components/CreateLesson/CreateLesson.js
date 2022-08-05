@@ -5,6 +5,7 @@ import * as lessonsService from '../../services/lessonsService'
 import { useNavigate } from 'react-router-dom';
 import { LessonContext } from '../../contexts/LessonContext';
 import { AuthContext } from '../../contexts/AuthContext';
+import DropboxChooser from 'react-dropbox-chooser';
 
 export const CreateLesson = () => {
     const [inputData, setInputData] = useState({
@@ -53,6 +54,13 @@ export const CreateLesson = () => {
             .catch(err => {
                 setError({active: true, message: err.message})
             })
+    }
+    const onSuccessfullyUploaded = (file) => {
+        setInputData(state => {
+            const newValue = { ...state };
+            newValue.resources = file[0].link;
+            return newValue;
+        })
     }
     //Validation
     const minMaxValidator = (e, min, max) => {
@@ -204,13 +212,14 @@ export const CreateLesson = () => {
                                     </div>}
                                     <div className="form-control mb-3">
                                         <label htmlFor="resources">Resources (optional)</label>
-                                        <input
-                                            className="form-control"
-                                            name="resources"
-                                            type="file"
-                                            id="resources"
-                                            placeholder="Files"
-                                        />
+                                        <div>
+                                            <DropboxChooser 
+                                                appKey= {"fp536edus6mtntt"}
+                                                success = {onSuccessfullyUploaded}
+                                                multiselect={false}>
+                                                <div className="dropbox-button btn btn-outline-warning" style={{ backgroundColor: "#636EA7" }}>Upload here</div> 
+                                            </DropboxChooser>
+                                        </div>
                                     </div>
                                     <div className="form-control mb-3">
                                         <textarea
