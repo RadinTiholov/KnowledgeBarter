@@ -17,7 +17,16 @@ export const CreateLesson = () => {
     });
     const navigate = useNavigate();
     const {create} = useContext(LessonContext)
-
+    const [errors, setErrors] = useState({
+        title: false,
+        description: false,
+        tumbnail: false,
+        article: false,
+        video: false,
+        tags: false,
+        resources: false,
+    })
+    const [error, setError] = useState({active: false, message: ""});
     const onChange = (e) => {
         setInputData(state => {
             if (e.target.name === 'tags') {
@@ -32,7 +41,6 @@ export const CreateLesson = () => {
     }
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log(inputData)
 
         lessonsService.create(inputData)
             .then(res => {
@@ -40,9 +48,25 @@ export const CreateLesson = () => {
                 navigate('/lesson/details/' + res._id)
             })
             .catch(err => {
-                //setError({active: true, message: res.message})
+                setError({active: true, message: err.message})
             })
     }
+    //Validation
+    const minMaxValidator = (e, min, max) => {
+        setErrors(state => ({ ...state, [e.target.name]: inputData[e.target.name].length < min || inputData[e.target.name].length > max}))
+    }
+    const urlValidator = (e) => {
+        var re = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/;
+        setErrors(state => ({ ...state, [e.target.name]: !re.test(inputData[e.target.name]) }))
+    }
+    const urlYoutubeValidator = (e) => {
+        var re = /^(https|http):\/\/(?:www\.)?youtube.com\/embed\/[A-z0-9]+/;
+        setErrors(state => ({ ...state, [e.target.name]: !re.test(inputData[e.target.name]) }))
+    }
+    const isPositivelength = (e) => {
+        setErrors(state => ({...state, [e.target.name]: inputData[e.target.name].length < 0}))
+    }
+    const isValidForm = !Object.values(errors).some(x => x);
     return (
         <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-create">
             {/* Login Form */}
@@ -64,19 +88,21 @@ export const CreateLesson = () => {
                                             placeholder="Some title"
                                             value={inputData.title}
                                             onChange={onChange}
+                                            onBlur = {(e) => minMaxValidator(e, 3, 30)}
                                         />
                                         <label htmlFor="title">Title</label>
                                     </div>
                                     {/* Alert */}
-                                    {/* <div
+                                    {errors.title && 
+                                    <div
                                         className="alert alert-danger d-flex align-items-center"
                                         role="alert"
                                     >
                                         <i className="fa-solid fa-triangle-exclamation me-2" />
                                         <div className="text-center">
-                                            An example Title danger alert with an icon
+                                            The length of the title must be a minimum of 3 and a maximum of 30 characters.
                                         </div>
-                                    </div> */}
+                                    </div>}
                                     <div className="form-floating mb-3">
                                         <input
                                             type="text"
@@ -86,16 +112,21 @@ export const CreateLesson = () => {
                                             placeholder="Some description"
                                             value={inputData.description}
                                             onChange={onChange}
+                                            onBlur = {(e) => minMaxValidator(e, 10, 60)}
                                         />
                                         <label htmlFor="description">Description</label>
                                     </div>
                                     {/* Alert */}
-                                    {/* <div class="alert alert-danger d-flex align-items-center" role="alert">
-                  <i class="fa-solid fa-triangle-exclamation me-2"></i>
-                  <div class="text-center">
-                    An example Description danger alert with an icon
-                  </div>
-                </div> */}
+                                    {errors.description && 
+                                    <div
+                                        className="alert alert-danger d-flex align-items-center"
+                                        role="alert"
+                                    >
+                                        <i className="fa-solid fa-triangle-exclamation me-2" />
+                                        <div className="text-center">
+                                            The length of the description must be a minimum of 10 and a maximum of 60 characters.
+                                        </div>
+                                    </div>}
                                     <div className="form-floating mb-3">
                                         <input
                                             type="text"
@@ -105,16 +136,21 @@ export const CreateLesson = () => {
                                             placeholder="Some link"
                                             value={inputData.video}
                                             onChange={onChange}
+                                            onBlur = {(e) => urlYoutubeValidator(e)}
                                         />
                                         <label htmlFor="video">Video Link</label>
                                     </div>
                                     {/* Alert */}
-                                    {/* <div class="alert alert-danger d-flex align-items-center" role="alert">
-                  <i class="fa-solid fa-triangle-exclamation me-2"></i>
-                  <div class="text-center">
-                    An example Video Link danger alert with an icon
-                  </div>
-                </div> */}
+                                    {errors.video && 
+                                    <div
+                                        className="alert alert-danger d-flex align-items-center"
+                                        role="alert"
+                                    >
+                                        <i className="fa-solid fa-triangle-exclamation me-2" />
+                                        <div className="text-center">
+                                            Please provide embedded youtube video.
+                                        </div>
+                                    </div>}
                                     <div className="form-floating mb-3">
                                         <input
                                             type="text"
@@ -124,16 +160,21 @@ export const CreateLesson = () => {
                                             placeholder="Some link"
                                             value={inputData.tumbnail}
                                             onChange={onChange}
+                                            onBlur = {(e) => urlValidator(e)}
                                         />
                                         <label htmlFor="tumbnail">Thumbnail Link</label>
                                     </div>
                                     {/* Alert */}
-                                    {/* <div class="alert alert-danger d-flex align-items-center" role="alert">
-                  <i class="fa-solid fa-triangle-exclamation me-2"></i>
-                  <div class="text-center">
-                    An example Video Link danger alert with an icon
-                  </div>
-                </div> */}
+                                    {errors.tumbnail && 
+                                    <div
+                                        className="alert alert-danger d-flex align-items-center"
+                                        role="alert"
+                                    >
+                                        <i className="fa-solid fa-triangle-exclamation me-2" />
+                                        <div className="text-center">
+                                            Please provide valid URL.
+                                        </div>
+                                    </div>}
                                     <div className="form-floating mb-3">
                                         <input
                                             type="text"
@@ -143,18 +184,23 @@ export const CreateLesson = () => {
                                             placeholder="Tags"
                                             value={inputData.tags}
                                             onChange={onChange}
+                                            onBlur= {(e) => isPositivelength(e)}
                                         />
-                                        <label htmlFor="tags">Tags (split them by comma(,))</label>
+                                        <label htmlFor="tags">Tags (split them by comma ",")</label>
                                     </div>
                                     {/* Alert */}
-                                    {/* <div class="alert alert-danger d-flex align-items-center" role="alert">
-                  <i class="fa-solid fa-triangle-exclamation me-2"></i>
-                  <div class="text-center">
-                    An example Video Link danger alert with an icon
-                  </div>
-                </div> */}
+                                    {errors.tags && 
+                                    <div
+                                        className="alert alert-danger d-flex align-items-center"
+                                        role="alert"
+                                    >
+                                        <i className="fa-solid fa-triangle-exclamation me-2" />
+                                        <div className="text-center">
+                                            Please provide tags.
+                                        </div>
+                                    </div>}
                                     <div className="form-control mb-3">
-                                        <label htmlFor="resources">Resources</label>
+                                        <label htmlFor="resources">Resources (optional)</label>
                                         <input
                                             className="form-control"
                                             name="resources"
@@ -163,13 +209,6 @@ export const CreateLesson = () => {
                                             placeholder="Files"
                                         />
                                     </div>
-                                    {/* Alert */}
-                                    {/* <div class="alert alert-danger d-flex align-items-center" role="alert">
-                  <i class="fa-solid fa-triangle-exclamation me-2"></i>
-                  <div class="text-center">
-                    An example Resources danger alert with an icon
-                  </div>
-                </div> */}
                                     <div className="form-control mb-3">
                                         <textarea
                                             type="text"
@@ -179,21 +218,27 @@ export const CreateLesson = () => {
                                             rows={10}
                                             value={inputData.article}
                                             onChange={onChange}
+                                            onBlur = {(e) => minMaxValidator(e, 50, 1000)}
                                         />
                                         <label htmlFor="article">Article</label>
                                     </div>
                                     {/* Alert */}
-                                    {/* <div class="alert alert-danger d-flex align-items-center" role="alert">
-                  <i class="fa-solid fa-triangle-exclamation me-2"></i>
-                  <div class="text-center">
-                    An example Video Link danger alert with an icon
-                  </div>
-                </div> */}
+                                    {errors.article && 
+                                    <div
+                                        className="alert alert-danger d-flex align-items-center"
+                                        role="alert"
+                                    >
+                                        <i className="fa-solid fa-triangle-exclamation me-2" />
+                                        <div className="text-center">
+                                        The length of the description must be a minimum of 50 and a maximum of 1000 characters.
+                                        </div>
+                                    </div>}
                                     <div className="d-grid">
                                         <button
                                             className="btn btn-outline-warning"
                                             style={{ backgroundColor: "#636EA7" }}
                                             type="submit"
+                                            disabled={!isValidForm || (!inputData.title || !inputData.description || !inputData.video || !inputData.article || !inputData.tumbnail || !inputData.tags.length > 0)}
                                         >
                                             Create
                                         </button>

@@ -21,7 +21,7 @@ const lessonSchema = new mongoose.Schema({
         type: String,
         required: true,
         minLenght: 50,
-        maxLenght: 500
+        maxLenght: 1000
     },
     video: {
         type: String,
