@@ -6,8 +6,10 @@ export const useBoughtLesson = (id) => {
     const [isBought, setIsBought] = useState(false);
 
     useEffect(() => {
-        authService.getDetails(auth._id)
+        if(auth !== null){
+            authService.getDetails(auth?._id)
             .then(res => setIsBought(res.boughtLessons.some(x => x === id)))
+        }
     }, [])
     return [
         isBought

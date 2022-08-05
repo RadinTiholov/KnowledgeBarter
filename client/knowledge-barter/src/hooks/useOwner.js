@@ -7,12 +7,14 @@ export const useOwner = (id, isLesson) => {
     const [isOwner, setIsOwner] = useState(false);
 
     useEffect(() => {
-        if(isLesson){
-            lessonsService.getDetails(id)
-            .then(res => setIsOwner(res.owner === auth._id))
-        }else{
-            coursesService.getDetails(id)
-            .then(res => setIsOwner(res.owner === auth._id))
+        if(auth){
+            if(isLesson){
+                lessonsService.getDetails(id)
+                .then(res => setIsOwner(res.owner === auth?._id))
+            }else{
+                coursesService.getDetails(id)
+                .then(res => setIsOwner(res.owner === auth?._id))
+            }
         }
     }, [])
     return [
