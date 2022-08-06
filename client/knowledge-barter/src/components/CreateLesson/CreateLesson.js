@@ -19,7 +19,7 @@ export const CreateLesson = () => {
     });
     const navigate = useNavigate();
     const {create} = useContext(LessonContext)
-    const {updatePoints} = useContext(AuthContext);
+    const {updatePointsForLesson} = useContext(AuthContext);
     const [errors, setErrors] = useState({
         title: false,
         description: false,
@@ -48,7 +48,7 @@ export const CreateLesson = () => {
         lessonsService.create(inputData)
             .then(res => {
                 create(res);
-                updatePoints();
+                updatePointsForLesson();
                 navigate('/lesson/details/' + res._id)
             })
             .catch(err => {
