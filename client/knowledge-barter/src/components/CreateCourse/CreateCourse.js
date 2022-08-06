@@ -12,7 +12,7 @@ export const CreateCourse = () => {
     const [collection] = useCollectionInfo('ownLessons');
     const navigate = useNavigate();
     const {create} = useContext(CourseContext)
-    const {updatePointsForCourse} = useContext(AuthContext);
+    const {updatePoints} = useContext(AuthContext);
     const [inputData, setInputData] = useState({
         title: "",
         description: "",
@@ -42,7 +42,7 @@ export const CreateCourse = () => {
         courseService.create({...inputData, lessons: lessonsIds})
             .then(res => {
                 create(res);
-                updatePointsForCourse();
+                updatePoints(500);
                 navigate('/course/details/' + res._id+ '/' + res.lessons[0])
             })
             .catch(err => {
@@ -141,7 +141,7 @@ export const CreateCourse = () => {
                                     </div>}
                                 <h5>Lessons</h5>
                                 <div className="form-floating mb-3">
-                                { collection.length >= 6 ? collection?.map(x => <Option {...x} key = {x._id} onChange= {onChange} value = {inputData.lessons}/>)  : <p className='text-center'>No lessons yet.</p>}
+                                { collection.length > 0 ? collection?.map(x => <Option {...x} key = {x._id} onChange= {onChange} value = {inputData.lessons}/>)  : <p className='text-center'>No lessons yet.</p>}
                                 {error.active === true ? <div className="alert alert-danger fade show mt-3">
                                         <strong>Error!</strong> {error.message}
                                     </div>: null}

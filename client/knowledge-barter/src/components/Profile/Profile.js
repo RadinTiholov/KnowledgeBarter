@@ -23,7 +23,7 @@ export const Profile = () => {
                                         className="img-fluid rounded-circle"
                                         style={{ width: 300, height: 300 }}
                                         src={fullUserInfo.profilePicture}
-                                        alt="Lesson Pic"
+                                        alt="Profile Pic"
                                     />
                                 </div>
                                 <hr className="my-4" />
