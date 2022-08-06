@@ -34,6 +34,13 @@ export const CourseDetailsBought = (props) => {
                                 >
                                     Like
                                 </button>
+                                <a
+                                    className="btn btn-outline-warning btn fw-bold"
+                                    style={{ backgroundColor: "#636EA7" }}
+                                    href={props.lesson?.resources}
+                                >
+                                    Resources
+                                </a>
                                 <Link
                                     className="btn btn-outline-warning btn fw-bold"
                                     style={{ backgroundColor: "#636EA7" }}
