@@ -38,7 +38,6 @@ export const EditCourse = () => {
         setInputData(state => (
             { ...state, [e.target.name]: e.target.value }))
     }
-
     const onSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
@@ -48,9 +47,11 @@ export const EditCourse = () => {
                 lessonsIds.push(formData.get(collection[i]._id))
             }
         }
-        courseService.create({...inputData, lessons: lessonsIds})
+        courseService.update({...inputData, lessons: lessonsIds}, id)
             .then(res => {
-                navigate('/course/details/' + res._id+ '/' + res.lessons[0])
+                update(res)
+                console.log(res)
+                navigate('/course/details/' + id + '/' + lessonsIds[0])
             })
             .catch(err => {
                 setError({active: true, message: err.message})
