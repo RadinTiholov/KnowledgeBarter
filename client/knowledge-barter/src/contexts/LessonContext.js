@@ -14,8 +14,11 @@ export const LessonProvider = ({children}) => {
     const create = (lesson) => {
         setLessons(state => [...state, lesson])
     }
+    const update = (lesson) => {
+        setLessons(state => lesson.map(x => x._id === lesson._id ? lesson : x));
+    }
     return (
-        <LessonContext.Provider value={{lessons, create}}>
+        <LessonContext.Provider value={{lessons, create, update}}>
             {children}
         </LessonContext.Provider>  
     );
