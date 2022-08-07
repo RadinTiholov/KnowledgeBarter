@@ -12,6 +12,7 @@ export const CourseDetailsBought = (props) => {
                 <div className="row pt-5">
                     <div className="col-10">
                     <h1>{props.course.title}</h1>
+                    
                         <div className="embed-responsive embed-responsive-16by9" autoFocus>
                             <iframe
                                 className="embed-responsive-item"
@@ -46,7 +47,15 @@ export const CourseDetailsBought = (props) => {
                                     style={{ backgroundColor: "#636EA7" }}
                                     to={'/lesson/edit/' + props.lesson._id}
                                 >
-                                    Edit
+                                    Edit Lesson
+                                </Link>
+                                
+                                <Link
+                                    className="btn btn-outline-warning btn fw-bold"
+                                    style={{ backgroundColor: "#636EA7" }}
+                                    to={'/course/edit/' + props.course._id}
+                                >
+                                    Edit Course
                                 </Link>
                                 <h5>{props.lesson.description}</h5>
                             </div>

@@ -139,7 +139,7 @@ export const CreateCourse = () => {
                                             Please provide valid URL.
                                         </div>
                                     </div>}
-                                <h5>Lessons</h5>
+                                <h5>Your lessons</h5>
                                 <div className="form-floating mb-3">
                                 { collection.length > 0 ? collection?.map(x => <Option {...x} key = {x._id} onChange= {onChange} value = {inputData.lessons}/>)  : <p className='text-center'>No lessons yet.</p>}
                                 {error.active === true ? <div className="alert alert-danger fade show mt-3">

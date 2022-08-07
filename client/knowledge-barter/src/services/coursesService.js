@@ -12,9 +12,14 @@ const getDetails = (id) => {
 const create = (data) => {
     return request.post(`${baseUrl}/course/all`, data)
 }
+const update = (data, id) => {
+    console.log(data)
+    return request.put(`${baseUrl}/course/edit/` + id, data)
+}
 export {
     getAll,
     getHighest,
     getDetails,
-    create
+    create,
+    update
 }

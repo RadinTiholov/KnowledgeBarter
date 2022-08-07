@@ -223,7 +223,6 @@ export const EditLesson = () => {
                                                 <div className="dropbox-button btn btn-outline-warning" style={{ backgroundColor: "#636EA7" }}>Upload here</div> 
                                             </DropboxChooser>
                                         </div>
-                                        <h5>{inputData.resources}</h5>
                                     </div>
                                     <div className="form-control mb-3">
                                         <textarea

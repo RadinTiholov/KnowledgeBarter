@@ -15,7 +15,7 @@ export const CourseProvider = ({children}) => {
         setCourses(state => [...state, course])
     }
     const update = (course) => {
-        setCourses(state => course.map(x => x._id === course._id ? course : x));
+        setCourses(state => courses.map(x => x._id === course._id ? course : x));
     }
     return (
         <CourseContext.Provider value={{courses, create, update}}>
