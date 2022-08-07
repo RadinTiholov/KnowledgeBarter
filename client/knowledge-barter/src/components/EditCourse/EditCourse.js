@@ -47,7 +47,10 @@ export const EditCourse = () => {
                 lessonsIds.push(formData.get(collection[i]._id))
             }
         }
-        courseService.update({...inputData, lessons: lessonsIds}, id)
+        if(lessonsIds.length < 6){
+            setError({active: true, message: "You need at least 6 lessons to create a course."})
+        }else{
+            courseService.update({...inputData, lessons: lessonsIds}, id)
             .then(res => {
                 update(res)
                 console.log(res)
@@ -56,6 +59,7 @@ export const EditCourse = () => {
             .catch(err => {
                 setError({active: true, message: err.message})
             })
+        }
     }
     const minMaxValidator = (e, min, max) => {
         setErrors(state => ({ ...state, [e.target.name]: inputData[e.target.name].length < min || inputData[e.target.name].length > max}))
@@ -147,7 +151,7 @@ export const EditCourse = () => {
                                             Please provide valid URL.
                                         </div>
                                     </div>}
-                                <h5>Lessons</h5>
+                                <h5>Your lessons</h5>
                                 <div className="form-floating mb-3">
                                 { collection.length > 0 ? collection?.map(x => <Option {...x} key = {x._id} onChange= {onChange} isSelected = {inputData.lessons.some(y => y._id === x._id)}/>)  : <p className='text-center'>No lessons yet.</p>}
                                 {error.active === true ? <div className="alert alert-danger fade show mt-3">
