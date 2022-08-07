@@ -1,7 +1,6 @@
 import { Card } from './Card/Card'
 import './LessonsDisplay.css'
 export const LessonsDisplay = (props) => {
-    console.log(props)
     return (
         <section id="lessons-display">
                 <div className="container">
