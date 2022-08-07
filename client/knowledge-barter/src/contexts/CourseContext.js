@@ -17,8 +17,11 @@ export const CourseProvider = ({children}) => {
     const update = (course) => {
         setCourses(state => courses.map(x => x._id === course._id ? course : x));
     }
+    const delCourse = (id) => {
+        setCourses(state => courses.filter(x => x._id !== id));
+    }
     return (
-        <CourseContext.Provider value={{courses, create, update}}>
+        <CourseContext.Provider value={{courses, create, update, delCourse}}>
             {children}
         </CourseContext.Provider>  
     );

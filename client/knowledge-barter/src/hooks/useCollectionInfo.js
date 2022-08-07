@@ -3,11 +3,15 @@ import { AuthContext } from '../contexts/AuthContext'
 import * as lessonService from '../services/lessonsService';
 import * as courseService from '../services/coursesService';
 import * as authService from '../services/authService'
+import { LessonContext } from "../contexts/LessonContext";
+import { CourseContext } from "../contexts/CourseContext";
 export const useCollectionInfo = (collectionName) => {
-    const [fullUserInfo, setfullUserInfo] = useState({})
-    const [collection, setCollection] = useState([])
+    const [fullUserInfo, setfullUserInfo] = useState({});
+    const [collection, setCollection] = useState([]);
     const { auth } = useContext(AuthContext);
-    
+    const { lessons } = useContext(LessonContext);
+    const { courses } = useContext(CourseContext);
+
     useEffect(() => {
         authService.getDetails(auth._id)
             .then(res => {
@@ -15,7 +19,9 @@ export const useCollectionInfo = (collectionName) => {
                 if (collectionName.includes('Lesson')) {
                     let promises = [];
                     for (let i = 0; i < res[collectionName].length; i++) {
-                        promises.push(lessonService.getDetails(res[collectionName][i]))
+                        if (lessons.some(x => x._id === res[collectionName][i])) {
+                            promises.push(lessonService.getDetails(res[collectionName][i]))
+                        }
                     }
                     Promise.all(promises)
                         .then((values) => {
@@ -24,7 +30,9 @@ export const useCollectionInfo = (collectionName) => {
                 } else {
                     let promises = [];
                     for (let i = 0; i < res[collectionName].length; i++) {
-                        promises.push(courseService.getDetails(res[collectionName][i]))
+                        if (courses.some(x => x._id === res[collectionName][i])) {
+                            promises.push(courseService.getDetails(res[collectionName][i]))
+                        }
                     }
                     Promise.all(promises)
                         .then((values) => {

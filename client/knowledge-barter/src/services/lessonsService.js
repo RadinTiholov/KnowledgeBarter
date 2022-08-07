@@ -13,9 +13,10 @@ const create = (data) => {
     return request.post(`${baseUrl}/lesson/all`, data)
 }
 const update = (data, id) => {
-    console.log(data)
-    console.log(id)
     return request.put(`${baseUrl}/lesson/edit/` + id, data)
+}
+const del = (id) => {
+    return request.del(`${baseUrl}/lesson/delete/` + id)
 }
 
 export {
@@ -23,5 +24,6 @@ export {
     getPopular,
     getDetails,
     create,
-    update
+    update,
+    del
 }

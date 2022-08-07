@@ -16,10 +16,14 @@ const update = (data, id) => {
     console.log(data)
     return request.put(`${baseUrl}/course/edit/` + id, data)
 }
+const del = (id) => {
+    return request.del(`${baseUrl}/course/delete/` + id)
+}
 export {
     getAll,
     getHighest,
     getDetails,
     create,
-    update
+    update,
+    del
 }
