@@ -1,9 +1,88 @@
 import './EditLesson.css'
 import background from '../../images/waves-login.svg'
+import { useContext, useEffect, useState } from 'react';
+import * as lessonsService from '../../services/lessonsService'
+import { useNavigate, useParams } from 'react-router-dom';
+import { LessonContext } from '../../contexts/LessonContext';
+import DropboxChooser from 'react-dropbox-chooser';
 
 export const EditLesson = () => {
+    const [inputData, setInputData] = useState({
+        title: "",
+        description: "",
+        tumbnail: "",
+        article: "",
+        video: "",
+        tags: [],
+        resources: "",
+    });
+    const {id} = useParams();
+    useEffect(() => {
+        lessonsService.getDetails(id )
+            .then(res => setInputData(res))
+    }, [])
+
+    const navigate = useNavigate();
+    const {update} = useContext(LessonContext)
+    const [errors, setErrors] = useState({
+        title: false,
+        description: false,
+        tumbnail: false,
+        article: false,
+        video: false,
+        tags: false,
+        resources: false,
+    })
+    const [error, setError] = useState({active: false, message: ""});
+    const onChange = (e) => {
+        setInputData(state => {
+            if (e.target.name === 'tags') {
+                const newValue = { ...state };
+                newValue.tags = e.target.value.split(',');
+                return newValue;
+            }
+            else {
+                return { ...state, [e.target.name]: e.target.value }
+            }
+        })
+    }
+    const onSubmit = (e) => {
+        e.preventDefault();
+
+        lessonsService.update(inputData, id )
+            .then(res => {
+                update(res)
+                navigate('/lesson/details/' + id )
+            })
+            .catch(err => {
+                setError({active: true, message: err.message})
+            })
+    }
+    const onSuccessfullyUploaded = (file) => {
+        setInputData(state => {
+            const newValue = { ...state };
+            newValue.resources = file[0].link;
+            return newValue;
+        })
+    }
+    //Validation
+    const minMaxValidator = (e, min, max) => {
+        setErrors(state => ({ ...state, [e.target.name]: inputData[e.target.name].length < min || inputData[e.target.name].length > max}))
+    }
+    const urlValidator = (e) => {
+        var re = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/;
+        setErrors(state => ({ ...state, [e.target.name]: !re.test(inputData[e.target.name]) }))
+    }
+    const urlYoutubeValidator = (e) => {
+        var re = /^(https|http):\/\/(?:www\.)?youtube.com\/embed\/[A-z0-9]+/;
+        setErrors(state => ({ ...state, [e.target.name]: !re.test(inputData[e.target.name]) }))
+    }
+    const isPositivelength = (e) => {
+        setErrors(state => ({...state, [e.target.name]: inputData[e.target.name].length < 0}))
+    }
+    const isValidForm = !Object.values(errors).some(x => x);
     return (
-        <div style = {{backgroundImage: `url(${background})`}} className="backgound-layer-create">
+        <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-create">
             {/* Login Form */}
             <div className="container">
                 <div className="row">
@@ -13,7 +92,7 @@ export const EditLesson = () => {
                                 <h5 className="card-title text-center mb-5 fw-bold fs-5">
                                     Edit Lesson
                                 </h5>
-                                <form>
+                                <form onSubmit={onSubmit}>
                                     <div className="form-floating mb-3">
                                         <input
                                             type="text"
@@ -21,19 +100,23 @@ export const EditLesson = () => {
                                             name="title"
                                             id="title"
                                             placeholder="Some title"
+                                            value={inputData.title}
+                                            onChange={onChange}
+                                            onBlur = {(e) => minMaxValidator(e, 3, 20)}
                                         />
                                         <label htmlFor="title">Title</label>
                                     </div>
                                     {/* Alert */}
+                                    {errors.title && 
                                     <div
                                         className="alert alert-danger d-flex align-items-center"
                                         role="alert"
                                     >
                                         <i className="fa-solid fa-triangle-exclamation me-2" />
                                         <div className="text-center">
-                                            An example Title danger alert with an icon
+                                            The length of the title must be a minimum of 3 and a maximum of 20 characters.
                                         </div>
-                                    </div>
+                                    </div>}
                                     <div className="form-floating mb-3">
                                         <input
                                             type="text"
@@ -41,16 +124,23 @@ export const EditLesson = () => {
                                             name="description"
                                             id="description"
                                             placeholder="Some description"
+                                            value={inputData.description}
+                                            onChange={onChange}
+                                            onBlur = {(e) => minMaxValidator(e, 10, 60)}
                                         />
                                         <label htmlFor="description">Description</label>
                                     </div>
                                     {/* Alert */}
-                                    {/* <div class="alert alert-danger d-flex align-items-center" role="alert">
-                  <i class="fa-solid fa-triangle-exclamation me-2"></i>
-                  <div class="text-center">
-                    An example Description danger alert with an icon
-                  </div>
-                </div> */}
+                                    {errors.description && 
+                                    <div
+                                        className="alert alert-danger d-flex align-items-center"
+                                        role="alert"
+                                    >
+                                        <i className="fa-solid fa-triangle-exclamation me-2" />
+                                        <div className="text-center">
+                                            The length of the description must be a minimum of 10 and a maximum of 60 characters.
+                                        </div>
+                                    </div>}
                                     <div className="form-floating mb-3">
                                         <input
                                             type="text"
@@ -58,33 +148,47 @@ export const EditLesson = () => {
                                             name="video"
                                             id="video"
                                             placeholder="Some link"
+                                            value={inputData.video}
+                                            onChange={onChange}
+                                            onBlur = {(e) => urlYoutubeValidator(e)}
                                         />
                                         <label htmlFor="video">Video Link</label>
                                     </div>
                                     {/* Alert */}
-                                    {/* <div class="alert alert-danger d-flex align-items-center" role="alert">
-                  <i class="fa-solid fa-triangle-exclamation me-2"></i>
-                  <div class="text-center">
-                    An example Video Link danger alert with an icon
-                  </div>
-                </div> */}
+                                    {errors.video && 
+                                    <div
+                                        className="alert alert-danger d-flex align-items-center"
+                                        role="alert"
+                                    >
+                                        <i className="fa-solid fa-triangle-exclamation me-2" />
+                                        <div className="text-center">
+                                            Please provide embedded youtube video.
+                                        </div>
+                                    </div>}
                                     <div className="form-floating mb-3">
                                         <input
                                             type="text"
                                             className="form-control"
-                                            name="thumbnail"
-                                            id="thumbnail"
+                                            name="tumbnail"
+                                            id="tumbnail"
                                             placeholder="Some link"
+                                            value={inputData.tumbnail}
+                                            onChange={onChange}
+                                            onBlur = {(e) => urlValidator(e)}
                                         />
-                                        <label htmlFor="thumbnail">Thumbnail Link</label>
+                                        <label htmlFor="tumbnail">Thumbnail Link</label>
                                     </div>
                                     {/* Alert */}
-                                    {/* <div class="alert alert-danger d-flex align-items-center" role="alert">
-                  <i class="fa-solid fa-triangle-exclamation me-2"></i>
-                  <div class="text-center">
-                    An example Video Link danger alert with an icon
-                  </div>
-                </div> */}
+                                    {errors.tumbnail && 
+                                    <div
+                                        className="alert alert-danger d-flex align-items-center"
+                                        role="alert"
+                                    >
+                                        <i className="fa-solid fa-triangle-exclamation me-2" />
+                                        <div className="text-center">
+                                            Please provide valid URL.
+                                        </div>
+                                    </div>}
                                     <div className="form-floating mb-3">
                                         <input
                                             type="text"
@@ -92,33 +196,35 @@ export const EditLesson = () => {
                                             name="tags"
                                             id="tags"
                                             placeholder="Tags"
+                                            value={inputData.tags}
+                                            onChange={onChange}
+                                            onBlur= {(e) => isPositivelength(e)}
                                         />
-                                        <label htmlFor="tags">Tags (split them by space)</label>
+                                        <label htmlFor="tags">Tags (split them by comma ",")</label>
                                     </div>
                                     {/* Alert */}
-                                    {/* <div class="alert alert-danger d-flex align-items-center" role="alert">
-                  <i class="fa-solid fa-triangle-exclamation me-2"></i>
-                  <div class="text-center">
-                    An example Video Link danger alert with an icon
-                  </div>
-                </div> */}
+                                    {errors.tags && 
+                                    <div
+                                        className="alert alert-danger d-flex align-items-center"
+                                        role="alert"
+                                    >
+                                        <i className="fa-solid fa-triangle-exclamation me-2" />
+                                        <div className="text-center">
+                                            Please provide tags.
+                                        </div>
+                                    </div>}
                                     <div className="form-control mb-3">
-                                        <label htmlFor="resources">Resources</label>
-                                        <input
-                                            className="form-control"
-                                            name="resources"
-                                            type="file"
-                                            id="resources"
-                                            placeholder="Files"
-                                        />
+                                        <label htmlFor="resources">Resources (optional)</label>
+                                        <div>
+                                            <DropboxChooser 
+                                                appKey= {"fp536edus6mtntt"}
+                                                success = {onSuccessfullyUploaded}
+                                                multiselect={false}>
+                                                <div className="dropbox-button btn btn-outline-warning" style={{ backgroundColor: "#636EA7" }}>Upload here</div> 
+                                            </DropboxChooser>
+                                        </div>
+                                        <h5>{inputData.resources}</h5>
                                     </div>
-                                    {/* Alert */}
-                                    {/* <div class="alert alert-danger d-flex align-items-center" role="alert">
-                  <i class="fa-solid fa-triangle-exclamation me-2"></i>
-                  <div class="text-center">
-                    An example Resources danger alert with an icon
-                  </div>
-                </div> */}
                                     <div className="form-control mb-3">
                                         <textarea
                                             type="text"
@@ -126,24 +232,35 @@ export const EditLesson = () => {
                                             name="article"
                                             id="article"
                                             rows={10}
-                                            defaultValue={""}
+                                            value={inputData.article}
+                                            onChange={onChange}
+                                            onBlur = {(e) => minMaxValidator(e, 50, 1000)}
                                         />
                                         <label htmlFor="article">Article</label>
                                     </div>
                                     {/* Alert */}
-                                    {/* <div class="alert alert-danger d-flex align-items-center" role="alert">
-                  <i class="fa-solid fa-triangle-exclamation me-2"></i>
-                  <div class="text-center">
-                    An example Video Link danger alert with an icon
-                  </div>
-                </div> */}
+                                    {errors.article && 
+                                    <div
+                                        className="alert alert-danger d-flex align-items-center"
+                                        role="alert"
+                                    >
+                                        <i className="fa-solid fa-triangle-exclamation me-2" />
+                                        <div className="text-center">
+                                        The length of the description must be a minimum of 50 and a maximum of 1000 characters.
+                                        </div>
+                                    </div>}
+                                    {/* Error message */}
+                                    {error.active === true ? <div className="alert alert-danger fade show mt-3">
+                                        <strong>Error!</strong> {error.message}
+                                    </div>: null}
                                     <div className="d-grid">
                                         <button
                                             className="btn btn-outline-warning"
                                             style={{ backgroundColor: "#636EA7" }}
                                             type="submit"
+                                            disabled={!isValidForm || (!inputData.title || !inputData.description || !inputData.video || !inputData.article || !inputData.tumbnail || !inputData.tags.length > 0)}
                                         >
-                                            Edit
+                                            Update
                                         </button>
                                     </div>
                                 </form>
