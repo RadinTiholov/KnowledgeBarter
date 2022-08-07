@@ -20,8 +20,8 @@ export const Home = () => {
     return (
         <>
             <Banner/>
-            <LessonsDisplay title = {'Most popular lessons'} route = {'/lesson/details/'} lessons = {lessons}/>
-            <LessonsDisplay title = {'Highest rated courses'} route = {'/course/details/'} courses = {courses}/>
+            <LessonsDisplay title = {'Most popular lessons'} route = {'/lesson/details/'} lessons = {!Array.isArray(lessons) ? [] : lessons}/>
+            <LessonsDisplay title = {'Highest rated courses'} route = {'/course/details/'} courses = {!Array.isArray(courses) ? [] : courses}/>
             <PointsBanner/>
         </>
     )

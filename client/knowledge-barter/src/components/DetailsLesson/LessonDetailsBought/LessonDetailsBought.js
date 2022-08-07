@@ -47,6 +47,13 @@ export const LessonDetailsBought = (props) => {
                                 >
                                     Edit
                                 </Link>
+                                <button
+                                    className="btn btn-outline-warning btn fw-bold"
+                                    style={{ backgroundColor: "red" }}
+                                    onClick = {props.onClickDelete}
+                                >
+                                    Delete
+                                </button>
                                 <h5>{props.lesson.description}</h5>
                             </div>
                             <div className="text-center">

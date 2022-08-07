@@ -11,9 +11,12 @@ export const DetailsLesson = () => {
 	const {lesson, owner, commentedUsers} = useLessonsWithUser(id);
     const [isOwner] = useOwner(id, true);
     const [isBought] = useBoughtLesson(id);
+    const onClickDelete = () => {
+        
+    }
     return (
         <>
-            {isBought || isOwner ? <LessonDetailsBought lesson = {lesson} owner = {owner} commentedUsers = {commentedUsers}/> : <LessonDetailsPreview lesson = {lesson} owner = {owner}/>} 
+            {isBought || isOwner ? <LessonDetailsBought lesson = {lesson} owner = {owner} commentedUsers = {commentedUsers} onClickDelete= {onClickDelete}/> : <LessonDetailsPreview lesson = {lesson} owner = {owner}/>} 
         </>
     )
 }
