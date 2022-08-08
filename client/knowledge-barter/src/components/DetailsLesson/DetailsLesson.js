@@ -16,6 +16,7 @@ export const DetailsLesson = () => {
     const [isOwner] = useOwner(id, true);
     const [isBought] = useBoughtLesson(id);
     const {delLesson} = useContext(LessonContext)
+    const {auth, updatePoints} = useContext(AuthContext)
     const onClickDelete = () => {
         lessonService.del(id)
             .then(res => {
@@ -25,9 +26,21 @@ export const DetailsLesson = () => {
                 alert(err)
             })
     }
+    const buyLessonOnClick = () => {
+        if(auth.kbpoints >= lesson.price){
+            lessonService.buy(id)
+                .then(res => {
+                    navigate('/lesson/bought')
+                    updatePoints(-100)
+                }).catch(err => {
+                    alert(err)
+                })
+        }
+        
+    }
     return (
         <>
-            {isBought || isOwner ? <LessonDetailsBought lesson = {lesson} owner = {owner} commentedUsers = {commentedUsers} onClickDelete= {onClickDelete} isOwner= {isOwner}/> : <LessonDetailsPreview lesson = {lesson} owner = {owner}/>} 
+            {isBought || isOwner ? <LessonDetailsBought lesson = {lesson} owner = {owner} commentedUsers = {commentedUsers} onClickDelete= {onClickDelete} isOwner= {isOwner}/> : <LessonDetailsPreview lesson = {lesson} owner = {owner}  buyLessonOnClick= {buyLessonOnClick}/>} 
         </>
     )
 }

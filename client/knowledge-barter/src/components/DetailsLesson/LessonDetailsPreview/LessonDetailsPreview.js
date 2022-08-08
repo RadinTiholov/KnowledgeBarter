@@ -63,7 +63,7 @@ export const LessonDetailsPreview = (props) => {
                                                         width: 130,
                                                         height: 50
                                                     }}
-                                                    type="submit"
+                                                    onClick = {props.buyLessonOnClick}
                                                 >
                                                     Buy ({props.lesson.price})
                                                 </button>
