@@ -40,7 +40,7 @@ export const DetailsCourse = () => {
     }
     return (
         <>
-            {isOwner || isBought ? <CourseDetailsBought lesson = {lesson} commentedUsers = {commentedUsers} course = {course} owner = {owner} onClickDeleteLesson= {onClickDeleteLesson} onClickDeleteCourse= {onClickDeleteCourse}/> : <CourseDetailsPreview course = {course} owner = {owner}/>}
+            {isOwner || isBought ? <CourseDetailsBought lesson = {lesson} commentedUsers = {commentedUsers} course = {course} owner = {owner} onClickDeleteLesson= {onClickDeleteLesson} onClickDeleteCourse= {onClickDeleteCourse} isOwner= {isOwner}/> : <CourseDetailsPreview course = {course} owner = {owner}/>}
         </>
     )
 }

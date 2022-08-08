@@ -26,13 +26,6 @@ export const LessonDetailsBought = (props) => {
                                 <span className="fw-bold">: {props.lesson.likes}</span>
                                 <i className="fa-solid fa-eye fa-2xl" />
                                 <span className="fw-bold">: {props.lesson.views}</span>
-                                <button
-                                    className="btn btn-outline-warning btn fw-bold"
-                                    style={{ backgroundColor: "#636EA7" }}
-                                    type="submit"
-                                >
-                                    Like
-                                </button>
                                 <a
                                     className="btn btn-outline-warning btn fw-bold"
                                     style={{ backgroundColor: "#636EA7" }}
@@ -40,6 +33,8 @@ export const LessonDetailsBought = (props) => {
                                 >
                                     Resources
                                 </a>
+                                {props.isOwner ? 
+                                <>
                                 <Link
                                     className="btn btn-outline-warning btn fw-bold"
                                     style={{ backgroundColor: "#636EA7" }}
@@ -53,7 +48,15 @@ export const LessonDetailsBought = (props) => {
                                     onClick = {props.onClickDelete}
                                 >
                                     Delete
+                                </button></> : 
+                                <button
+                                    className="btn btn-outline-warning btn fw-bold"
+                                    style={{ backgroundColor: "#636EA7" }}
+                                    type="submit"
+                                >
+                                    Like
                                 </button>
+                                }
                                 <h5>{props.lesson.description}</h5>
                             </div>
                             <div className="text-center">

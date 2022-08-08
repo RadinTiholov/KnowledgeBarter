@@ -7,6 +7,7 @@ import { LessonDetailsPreview } from "./LessonDetailsPreview/LessonDetailsPrevie
 import * as lessonService from '../../services/lessonsService'
 import { useContext } from 'react';
 import { LessonContext } from '../../contexts/LessonContext';
+import { AuthContext } from '../../contexts/AuthContext';
 
 export const DetailsLesson = () => {
     const {id} = useParams();
@@ -26,7 +27,7 @@ export const DetailsLesson = () => {
     }
     return (
         <>
-            {isBought || isOwner ? <LessonDetailsBought lesson = {lesson} owner = {owner} commentedUsers = {commentedUsers} onClickDelete= {onClickDelete}/> : <LessonDetailsPreview lesson = {lesson} owner = {owner}/>} 
+            {isBought || isOwner ? <LessonDetailsBought lesson = {lesson} owner = {owner} commentedUsers = {commentedUsers} onClickDelete= {onClickDelete} isOwner= {isOwner}/> : <LessonDetailsPreview lesson = {lesson} owner = {owner}/>} 
         </>
     )
 }

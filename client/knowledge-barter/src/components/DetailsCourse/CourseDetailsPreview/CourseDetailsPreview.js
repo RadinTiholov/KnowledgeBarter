@@ -27,17 +27,13 @@ export const CourseDetailsPreview = (props) => {
                                             <div className="row">
                                                 <div className="col">
                                                     <i className="fa-solid fa-thumbs-up fa-2xl  mt-5" />
-                                                    <span className="fw-bold">: 300</span>
-                                                </div>
-                                                <div className="col">
-                                                    <i className="fa-solid fa-eye fa-2xl  mt-5" />
-                                                    <span className="fw-bold">: 1200</span>
+                                                    <span className="fw-bold">: {props.course.likes}</span>
                                                 </div>
                                             </div>
                                             <div className="row">
                                                 <div className="col">
                                                     <i className="fa-solid fa-lightbulb fa-2xl  mt-5" />
-                                                    <span className="fw-bold">: 200$</span>
+                                                    <span className="fw-bold">: {props.course.price}$</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -65,7 +61,7 @@ export const CourseDetailsPreview = (props) => {
                                                     }}
                                                     type="submit"
                                                 >
-                                                    Buy (200)
+                                                    Buy ({props.course.price})
                                                 </button>
                                             </div>
                                         </div>

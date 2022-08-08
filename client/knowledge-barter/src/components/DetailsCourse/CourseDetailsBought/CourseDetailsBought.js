@@ -1,5 +1,5 @@
 import './CourseDetailsBought.css'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import background from '../../../images/waves-details.svg'
 import { Comment } from './Comment/Comment'
 import { Lesson } from './Lesson/Lesson'
@@ -11,8 +11,8 @@ export const CourseDetailsBought = (props) => {
             <div className="container">
                 <div className="row pt-5">
                     <div className="col-10">
-                    <h1>{props.course.title}</h1>
-                    
+                        <h1>{props.course.title}</h1>
+
                         <div className="embed-responsive embed-responsive-16by9" autoFocus>
                             <iframe
                                 className="embed-responsive-item"
@@ -28,13 +28,6 @@ export const CourseDetailsBought = (props) => {
                                 <span className="fw-bold">: {props.lesson.likes}</span>
                                 <i className="fa-solid fa-eye fa-2xl" />
                                 <span className="fw-bold">: {props.lesson.views}</span>
-                                <button
-                                    className="btn btn-outline-warning btn fw-bold"
-                                    style={{ backgroundColor: "#636EA7" }}
-                                    type="submit"
-                                >
-                                    Like
-                                </button>
                                 <a
                                     className="btn btn-outline-warning btn fw-bold"
                                     style={{ backgroundColor: "#636EA7" }}
@@ -42,35 +35,45 @@ export const CourseDetailsBought = (props) => {
                                 >
                                     Resources
                                 </a>
-                                <Link
-                                    className="btn btn-outline-warning btn fw-bold"
-                                    style={{ backgroundColor: "#636EA7" }}
-                                    to={'/lesson/edit/' + props.lesson._id}
-                                >
-                                    Edit Lesson
-                                </Link>
-                                
-                                <Link
-                                    className="btn btn-outline-warning btn fw-bold"
-                                    style={{ backgroundColor: "#636EA7" }}
-                                    to={'/course/edit/' + props.course._id}
-                                >
-                                    Edit Course
-                                </Link>
-                                <button
-                                    className="btn btn-outline-warning btn fw-bold"
-                                    style={{ backgroundColor: "red" }}
-                                    onClick = {props.onClickDeleteLesson}
-                                >
-                                    Delete Lesson
-                                </button>
-                                <button
-                                    className="btn btn-outline-warning btn fw-bold"
-                                    style={{ backgroundColor: "red" }}
-                                    onClick = {props.onClickDeleteCourse}
-                                >
-                                    Delete Course
-                                </button>
+                                {props.isOwner ?
+                                    <>
+                                        <Link
+                                            className="btn btn-outline-warning btn fw-bold"
+                                            style={{ backgroundColor: "#636EA7" }}
+                                            to={'/lesson/edit/' + props.lesson._id}
+                                        >
+                                            Edit Lesson
+                                        </Link>
+
+                                        <Link
+                                            className="btn btn-outline-warning btn fw-bold"
+                                            style={{ backgroundColor: "#636EA7" }}
+                                            to={'/course/edit/' + props.course._id}
+                                        >
+                                            Edit Course
+                                        </Link>
+                                        <button
+                                            className="btn btn-outline-warning btn fw-bold"
+                                            style={{ backgroundColor: "red" }}
+                                            onClick={props.onClickDeleteLesson}
+                                        >
+                                            Delete Lesson
+                                        </button>
+                                        <button
+                                            className="btn btn-outline-warning btn fw-bold"
+                                            style={{ backgroundColor: "red" }}
+                                            onClick={props.onClickDeleteCourse}
+                                        >
+                                            Delete Course
+                                        </button>
+                                    </> :
+                                    <button
+                                        className="btn btn-outline-warning btn fw-bold"
+                                        style={{ backgroundColor: "#636EA7" }}
+                                        type="submit"
+                                    >
+                                        Like
+                                    </button>}
                                 <h5>{props.lesson.description}</h5>
                             </div>
                             <div className="text-center">
@@ -98,12 +101,12 @@ export const CourseDetailsBought = (props) => {
                                     </button>
                                 </div>
                             </form>
-                            {props.lesson.comments?.map(x => <Comment key = {x._id} {...x} commentedUsers = {props.commentedUsers.filter(y => y._id === x.owner)}/>) }
+                            {props.lesson.comments?.map(x => <Comment key={x._id} {...x} commentedUsers={props.commentedUsers.filter(y => y._id === x.owner)} />)}
                         </div>
                     </div>
                     <div className="col-2">
                         <p>Lessons</p>
-                        {props.course?.lessons?.map(x => <Lesson key= {x._id} {...x} courseId = {props.course._id}/>)}
+                        {props.course?.lessons?.map(x => <Lesson key={x._id} {...x} courseId={props.course._id} />)}
                     </div>
                 </div>
             </div>
