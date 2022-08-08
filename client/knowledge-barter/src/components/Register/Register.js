@@ -179,7 +179,7 @@ export const Register = () => {
                                             className="btn btn-outline-warning"
                                             style={{ backgroundColor: "#636EA7" }}
                                             type="submit"
-                                            disabled={!isValidForm || (!inputData.name && !inputData.password && inputData.rePassword && inputData.username && inputData.profilePicture)}
+                                            disabled={!isValidForm || !(inputData.email  && inputData.password && inputData.rePassword && inputData.profilePicture && inputData.username)}
                                         >
                                             Register
                                         </button>
