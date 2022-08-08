@@ -19,11 +19,15 @@ const update = (data, id) => {
 const del = (id) => {
     return request.del(`${baseUrl}/course/delete/` + id)
 }
+const buy = (id) => {
+    return request.get(`${baseUrl}/course/buy/` + id)
+}
 export {
     getAll,
     getHighest,
     getDetails,
     create,
     update,
-    del
+    del,
+    buy
 }

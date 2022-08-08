@@ -30,6 +30,8 @@ import { Logout } from './components/Logout/Logout';
 import { NotFound } from './components/NotFound/NotFound';
 import GuestGuard from './components/common/GuestGuard';
 import UserGuard from './components/common/UserGuard';
+import LessonOwner from './components/common/LessonOwner';
+import CourseOwner from './components/common/CourseOwner';
 
 function App() {
     return (
@@ -46,16 +48,20 @@ function App() {
                                 <Route path='/logout' element={<Logout />} />
                                 <Route path='/profile' element={<Profile />} />
                                 <Route path='/lesson/create' element={<CreateLesson />} />
-                                <Route path='/lesson/edit/:id' element={<EditLesson />} />
                                 <Route path='/lesson/details/:id' element={<DetailsLesson />} />
                                 <Route path='/lesson/bought' element={<BoughtLessons />} />
                                 <Route path='/lesson/yours' element={<YourLessons />} />
                                 <Route path='/course/create' element={<CreateCourse />} />
-                                <Route path='/course/edit/:id' element={<EditCourse />} />
                                 <Route path='/course/details/:courseId/:lessonId' element={<DetailsCourse />} />
                                 <Route path='/course/bought' element={<BoughtCourses />} />
                                 <Route path='/course/yours' element={<YourCourses />} />
                                 <Route path='/liked' element={<Liked />} />
+                            </Route>
+                            <Route element={<LessonOwner />}>
+                                <Route path='/lesson/edit/:id' element={<EditLesson />} />
+                            </Route>
+                            <Route element={<CourseOwner/>}>
+                                <Route path='/course/edit/:id' element={<EditCourse />} />
                             </Route>
                             <Route element={<UserGuard />}>
                                 <Route path='/login' element={<Login />} />

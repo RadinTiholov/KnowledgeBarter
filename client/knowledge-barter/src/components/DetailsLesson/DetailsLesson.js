@@ -35,6 +35,8 @@ export const DetailsLesson = () => {
                 }).catch(err => {
                     alert(err)
                 })
+        }else{
+            alert("You don't have enough KBPoints")
         }
         
     }

@@ -1,5 +1,4 @@
 import {createContext, useEffect, useState} from 'react'
-import { useNavigate } from 'react-router-dom';
 import * as lessonsService from '../services/lessonsService'
 
 export const LessonContext = createContext();
@@ -20,8 +19,11 @@ export const LessonProvider = ({children}) => {
     const delLesson = (id) => {
         setLessons(state => lessons.filter(x => x._id !== id));
     }
+    const select = (id) => {
+        return lessons.find(x => x._id === id) || {};
+    };
     return (
-        <LessonContext.Provider value={{lessons, create, update, delLesson}}>
+        <LessonContext.Provider value={{lessons, create, update, delLesson, select}}>
             {children}
         </LessonContext.Provider>  
     );
