@@ -18,7 +18,7 @@ export const DetailsLesson = () => {
     const [isOwner] = useOwner(id, true);
     const [isBought] = useBoughtLesson(id);
     const [fullUserInfo, setfullUserInfo] = useUserInfo({})
-    const [isLiked, setIsLiked] = useIsLiked(id);
+    const [isLiked, setIsLiked] = useIsLiked(id, true);
     const { delLesson } = useContext(LessonContext)
     const { auth, updatePoints } = useContext(AuthContext)
     const onClickDelete = () => {

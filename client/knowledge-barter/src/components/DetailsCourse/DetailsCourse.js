@@ -11,17 +11,21 @@ import { useContext } from 'react';
 import { LessonContext } from '../../contexts/LessonContext';
 import { CourseContext } from "../../contexts/CourseContext";
 import { AuthContext } from "../../contexts/AuthContext";
+import { useIsLiked } from "../../hooks/useIsLiked";
+import { useUserInfo } from "../../hooks/useUserInfo";
 
 export const DetailsCourse = () => {
     const {courseId, lessonId} = useParams();
     const [isOwner] = useOwner(courseId, false);
-    const {course, owner} = useCourseWithUser(courseId);
+    const {course, setCourse, owner} = useCourseWithUser(courseId);
     const [isBought] = useBoughtCourse(courseId);
     const {lesson, commentedUsers} = useLessonsWithUser(lessonId);
     const navigate = useNavigate();
     const {delLesson} = useContext(LessonContext)
     const {delCourse} = useContext(CourseContext)
     const {auth, updatePoints} = useContext(AuthContext);
+    const [isLiked, setIsLiked] = useIsLiked(courseId, false);
+    const [fullUserInfo, setfullUserInfo] = useUserInfo({})
     const onClickDeleteLesson = () => {
         lessonService.del(lessonId)
             .then(res => {
@@ -53,9 +57,28 @@ export const DetailsCourse = () => {
             alert("You don't have enough KBPoints")
         }
     }
+    const likeCourseOnClick = () => {
+        courseService.like(courseId)
+            .then(res => {
+                setIsLiked(true);
+                setCourse(state => {
+                    let temp = { ...state }
+                    temp.likes++;
+                    return temp
+                })
+                setfullUserInfo(state => {
+                    let temp = { ...state }
+                    temp.likedCourses.push(courseId);
+                    return temp
+                })
+            })
+            .catch(err => {
+                alert(err)
+            })
+    }
     return (
         <>
-            {isOwner || isBought ? <CourseDetailsBought lesson = {lesson} commentedUsers = {commentedUsers} course = {course} owner = {owner} onClickDeleteLesson= {onClickDeleteLesson} onClickDeleteCourse= {onClickDeleteCourse} isOwner= {isOwner}/> : <CourseDetailsPreview course = {course} owner = {owner} buyCourseOnClick= {buyCourseOnClick}/>}
+            {isOwner || isBought ? <CourseDetailsBought lesson = {lesson} commentedUsers = {commentedUsers} course = {course} owner = {owner} onClickDeleteLesson= {onClickDeleteLesson} onClickDeleteCourse= {onClickDeleteCourse} isOwner= {isOwner} likeCourseOnClick = {likeCourseOnClick} isLiked = {isLiked}/> : <CourseDetailsPreview course = {course} owner = {owner} buyCourseOnClick= {buyCourseOnClick} likeCourseOnClick = {likeCourseOnClick} isLiked = {isLiked}/>}
         </>
     )
 }

@@ -3,7 +3,7 @@ import background from '../../../images/waves-details.svg'
 
 export const CourseDetailsPreview = (props) => {
     return (
-        <div style = {{backgroundImage: `url(${background})`}}  className="backgound-layer-details">
+        <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-details">
             {/* Login Form */}
             <div className="container">
                 <div className="row">
@@ -39,17 +39,28 @@ export const CourseDetailsPreview = (props) => {
                                         </div>
                                         <div className="col-5">
                                             <div className="row">
-                                                <button
+                                                {props.isLiked ? <button
                                                     className="btn btn-outline-warning btn-lg mt-4 fw-bold"
                                                     style={{
                                                         backgroundColor: "#636EA7",
                                                         width: 130,
                                                         height: 50
                                                     }}
-                                                    type="submit"
+                                                    disabled = {true}
                                                 >
-                                                    Like
-                                                </button>
+                                                    Liked
+                                                </button> :
+                                                    <button
+                                                        className="btn btn-outline-warning btn-lg mt-4 fw-bold"
+                                                        style={{
+                                                            backgroundColor: "#636EA7",
+                                                            width: 130,
+                                                            height: 50
+                                                        }}
+                                                        onClick={props.likeCourseOnClick}
+                                                    >
+                                                        Like
+                                                    </button>}
                                             </div>
                                             <div className="row">
                                                 <button
@@ -59,7 +70,7 @@ export const CourseDetailsPreview = (props) => {
                                                         width: 130,
                                                         height: 50
                                                     }}
-                                                    onClick = {props.buyCourseOnClick}
+                                                    onClick={props.buyCourseOnClick}
                                                 >
                                                     Buy ({props.course.price})
                                                 </button>

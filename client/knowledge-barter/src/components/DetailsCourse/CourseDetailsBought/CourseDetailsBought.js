@@ -68,18 +68,21 @@ export const CourseDetailsBought = (props) => {
                                         </button>
                                     </> :
                                     <>
-                                        <button
+                                    {props.isLiked ? <button
                                             className="btn btn-outline-warning btn fw-bold"
                                             style={{ backgroundColor: "#636EA7" }}
+                                            disabled = {true}
                                         >
-                                            Like Lesson
-                                        </button>
+                                            Liked Course
+                                        </button> : 
                                         <button
                                             className="btn btn-outline-warning btn fw-bold"
                                             style={{ backgroundColor: "#636EA7" }}
+                                            onClick = {props.likeCourseOnClick}
                                         >
                                             Like Course
-                                        </button>
+                                        </button>}
+                                        
                                     </>}
                                 <h5>{props.lesson.description}</h5>
                             </div>
