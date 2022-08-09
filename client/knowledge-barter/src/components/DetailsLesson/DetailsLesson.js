@@ -5,18 +5,22 @@ import { useOwner } from "../../hooks/useOwner";
 import { LessonDetailsBought } from "./LessonDetailsBought/LessonDetailsBought";
 import { LessonDetailsPreview } from "./LessonDetailsPreview/LessonDetailsPreview";
 import * as lessonService from '../../services/lessonsService'
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { LessonContext } from '../../contexts/LessonContext';
 import { AuthContext } from '../../contexts/AuthContext';
+import { useUserInfo } from '../../hooks/useUserInfo'
+import { useIsLiked } from '../../hooks/useIsLiked';
 
 export const DetailsLesson = () => {
-    const {id} = useParams();
-	const {lesson, owner, commentedUsers} = useLessonsWithUser(id);
+    const { id } = useParams();
+    const { lesson, setLesson, owner, commentedUsers } = useLessonsWithUser(id);
     const navigate = useNavigate();
     const [isOwner] = useOwner(id, true);
     const [isBought] = useBoughtLesson(id);
-    const {delLesson} = useContext(LessonContext)
-    const {auth, updatePoints} = useContext(AuthContext)
+    const [fullUserInfo, setfullUserInfo] = useUserInfo({})
+    const [isLiked, setIsLiked] = useIsLiked(id);
+    const { delLesson } = useContext(LessonContext)
+    const { auth, updatePoints } = useContext(AuthContext)
     const onClickDelete = () => {
         lessonService.del(id)
             .then(res => {
@@ -27,7 +31,7 @@ export const DetailsLesson = () => {
             })
     }
     const buyLessonOnClick = () => {
-        if(auth.kbpoints >= lesson.price){
+        if (auth.kbpoints >= lesson.price) {
             lessonService.buy(id)
                 .then(res => {
                     navigate('/lesson/bought')
@@ -35,14 +39,32 @@ export const DetailsLesson = () => {
                 }).catch(err => {
                     alert(err)
                 })
-        }else{
+        } else {
             alert("You don't have enough KBPoints")
         }
-        
+    }
+    const likeLessonOnClick = () => {
+        lessonService.like(id)
+            .then(res => {
+                setIsLiked(true);
+                setLesson(state => {
+                    let temp = { ...state }
+                    temp.likes++;
+                    return temp
+                })
+                setfullUserInfo(state => {
+                    let temp = { ...state }
+                    temp.likedLessons.push(id);
+                    return temp
+                })
+            })
+            .catch(err => {
+                alert(err)
+            })
     }
     return (
         <>
-            {isBought || isOwner ? <LessonDetailsBought lesson = {lesson} owner = {owner} commentedUsers = {commentedUsers} onClickDelete= {onClickDelete} isOwner= {isOwner}/> : <LessonDetailsPreview lesson = {lesson} owner = {owner}  buyLessonOnClick= {buyLessonOnClick}/>} 
+            {isBought || isOwner ? <LessonDetailsBought lesson={lesson} owner={owner} commentedUsers={commentedUsers} onClickDelete={onClickDelete} likeLessonOnClick= {likeLessonOnClick} isOwner={isOwner} isLiked={isLiked} /> : <LessonDetailsPreview lesson={lesson} owner={owner} buyLessonOnClick={buyLessonOnClick} likeLessonOnClick= {likeLessonOnClick} isLiked={isLiked} />}
         </>
     )
 }

@@ -21,6 +21,9 @@ const del = (id) => {
 const buy = (id) => {
     return request.get(`${baseUrl}/lesson/buy/` + id)
 }
+const like = (id) => {
+    return request.get(`${baseUrl}/lesson/like/` + id)
+}
 
 export {
     getAll,
@@ -29,5 +32,6 @@ export {
     create,
     update,
     del,
-    buy
+    buy,
+    like
 }

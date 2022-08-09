@@ -67,13 +67,20 @@ export const CourseDetailsBought = (props) => {
                                             Delete Course
                                         </button>
                                     </> :
-                                    <button
-                                        className="btn btn-outline-warning btn fw-bold"
-                                        style={{ backgroundColor: "#636EA7" }}
-                                        type="submit"
-                                    >
-                                        Like
-                                    </button>}
+                                    <>
+                                        <button
+                                            className="btn btn-outline-warning btn fw-bold"
+                                            style={{ backgroundColor: "#636EA7" }}
+                                        >
+                                            Like Lesson
+                                        </button>
+                                        <button
+                                            className="btn btn-outline-warning btn fw-bold"
+                                            style={{ backgroundColor: "#636EA7" }}
+                                        >
+                                            Like Course
+                                        </button>
+                                    </>}
                                 <h5>{props.lesson.description}</h5>
                             </div>
                             <div className="text-center">

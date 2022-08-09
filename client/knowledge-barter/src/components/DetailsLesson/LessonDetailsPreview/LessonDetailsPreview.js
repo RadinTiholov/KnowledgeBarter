@@ -3,7 +3,7 @@ import background from '../../../images/waves-details.svg'
 
 export const LessonDetailsPreview = (props) => {
     return (
-        <div style = {{backgroundImage: `url(${background})`}}  className="backgound-layer-details">
+        <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-details">
             {/* Login Form */}
             <div className="container">
                 <div className="row">
@@ -43,17 +43,30 @@ export const LessonDetailsPreview = (props) => {
                                         </div>
                                         <div className="col-5">
                                             <div className="row">
-                                                <button
-                                                    className="btn btn-outline-warning btn-lg mt-4 fw-bold"
-                                                    style={{
-                                                        backgroundColor: "#636EA7",
-                                                        width: 130,
-                                                        height: 50
-                                                    }}
-                                                    type="submit"
-                                                >
-                                                    Like
-                                                </button>
+                                                {props.isLiked ?
+                                                    <button
+                                                        className="btn btn-outline-warning btn-lg mt-4 fw-bold"
+                                                        style={{
+                                                            backgroundColor: "#636EA7",
+                                                            width: 130,
+                                                            height: 50
+                                                        }}
+                                                        disabled = {true}
+                                                    >
+                                                        Liked
+                                                    </button> :
+                                                    <button
+                                                        className="btn btn-outline-warning btn-lg mt-4 fw-bold"
+                                                        style={{
+                                                            backgroundColor: "#636EA7",
+                                                            width: 130,
+                                                            height: 50
+                                                        }}
+                                                        onClick = {props.likeLessonOnClick}
+                                                    >
+                                                        Like
+                                                    </button>}
+
                                             </div>
                                             <div className="row">
                                                 <button
@@ -63,7 +76,7 @@ export const LessonDetailsPreview = (props) => {
                                                         width: 130,
                                                         height: 50
                                                     }}
-                                                    onClick = {props.buyLessonOnClick}
+                                                    onClick={props.buyLessonOnClick}
                                                 >
                                                     Buy ({props.lesson.price})
                                                 </button>

@@ -48,14 +48,27 @@ export const LessonDetailsBought = (props) => {
                                     onClick = {props.onClickDelete}
                                 >
                                     Delete
-                                </button></> : 
-                                <button
+                                </button></> : <>
+                                {props.isLiked ? 
+                                    <button
                                     className="btn btn-outline-warning btn fw-bold"
-                                    style={{ backgroundColor: "#636EA7" }}
-                                    type="submit"
+                                    style={{
+                                        backgroundColor: "#636EA7"
+                                    }}
+                                    disabled = {true}
                                 >
-                                    Like
-                                </button>
+                                    Liked
+                                </button> : 
+                                <button
+                                className="btn btn-outline-warning btn fw-bold"
+                                style={{
+                                    backgroundColor: "#636EA7"
+                                }}
+                                onClick = {props.likeLessonOnClick}
+                            >
+                                Like
+                            </button>}
+                                </>
                                 }
                                 <h5>{props.lesson.description}</h5>
                             </div>

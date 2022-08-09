@@ -22,6 +22,9 @@ const del = (id) => {
 const buy = (id) => {
     return request.get(`${baseUrl}/course/buy/` + id)
 }
+const like = (id) => {
+    return request.get(`${baseUrl}/course/like/` + id)
+}
 export {
     getAll,
     getHighest,
@@ -29,5 +32,6 @@ export {
     create,
     update,
     del,
-    buy
+    buy,
+    like
 }
