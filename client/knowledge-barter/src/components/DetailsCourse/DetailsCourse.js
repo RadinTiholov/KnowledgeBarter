@@ -10,6 +10,7 @@ import * as courseService from '../../services/coursesService'
 import { useContext } from 'react';
 import { LessonContext } from '../../contexts/LessonContext';
 import { CourseContext } from "../../contexts/CourseContext";
+import { AuthContext } from "../../contexts/AuthContext";
 
 export const DetailsCourse = () => {
     const {courseId, lessonId} = useParams();
@@ -20,6 +21,7 @@ export const DetailsCourse = () => {
     const navigate = useNavigate();
     const {delLesson} = useContext(LessonContext)
     const {delCourse} = useContext(CourseContext)
+    const {auth, updatePoints} = useContext(AuthContext);
     const onClickDeleteLesson = () => {
         lessonService.del(lessonId)
             .then(res => {
@@ -38,9 +40,22 @@ export const DetailsCourse = () => {
                 alert(err)
             })
     }
+    const buyCourseOnClick = () => {
+        if(auth.kbpoints >= course.price){
+            courseService.buy(courseId)
+                .then(res => {
+                    navigate('/course/bought')
+                    updatePoints(-500)
+                }).catch(err => {
+                    alert(err)
+                })
+        }else{
+            alert("You don't have enough KBPoints")
+        }
+    }
     return (
         <>
-            {isOwner || isBought ? <CourseDetailsBought lesson = {lesson} commentedUsers = {commentedUsers} course = {course} owner = {owner} onClickDeleteLesson= {onClickDeleteLesson} onClickDeleteCourse= {onClickDeleteCourse} isOwner= {isOwner}/> : <CourseDetailsPreview course = {course} owner = {owner}/>}
+            {isOwner || isBought ? <CourseDetailsBought lesson = {lesson} commentedUsers = {commentedUsers} course = {course} owner = {owner} onClickDeleteLesson= {onClickDeleteLesson} onClickDeleteCourse= {onClickDeleteCourse} isOwner= {isOwner}/> : <CourseDetailsPreview course = {course} owner = {owner} buyCourseOnClick= {buyCourseOnClick}/>}
         </>
     )
 }
