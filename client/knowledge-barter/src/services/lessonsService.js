@@ -24,6 +24,9 @@ const buy = (id) => {
 const like = (id) => {
     return request.get(`${baseUrl}/lesson/like/` + id)
 }
+const comment = (id, text) => {
+    return request.post(`${baseUrl}/lesson/comment/` + id, {text})
+}
 
 export {
     getAll,
@@ -33,5 +36,6 @@ export {
     update,
     del,
     buy,
-    like
+    like,
+    comment
 }

@@ -19,7 +19,7 @@ export const DetailsCourse = () => {
     const [isOwner] = useOwner(courseId, false);
     const {course, setCourse, owner} = useCourseWithUser(courseId);
     const [isBought] = useBoughtCourse(courseId);
-    const {lesson, commentedUsers} = useLessonsWithUser(lessonId);
+    const {lesson, setLesson, commentedUsers, setCommentedUsers} = useLessonsWithUser(lessonId);
     const navigate = useNavigate();
     const {delLesson} = useContext(LessonContext)
     const {delCourse} = useContext(CourseContext)
@@ -76,9 +76,21 @@ export const DetailsCourse = () => {
                 alert(err)
             })
     }
+    const comment = (comment) => {
+        setLesson(state => {
+            let temp = {...state}
+            temp.comments.push(comment)
+            return temp
+        })
+        setCommentedUsers(state => {
+            let temp = [...state]
+            temp.push(fullUserInfo)
+            return temp
+        })
+    }
     return (
         <>
-            {isOwner || isBought ? <CourseDetailsBought lesson = {lesson} commentedUsers = {commentedUsers} course = {course} owner = {owner} onClickDeleteLesson= {onClickDeleteLesson} onClickDeleteCourse= {onClickDeleteCourse} isOwner= {isOwner} likeCourseOnClick = {likeCourseOnClick} isLiked = {isLiked}/> : <CourseDetailsPreview course = {course} owner = {owner} buyCourseOnClick= {buyCourseOnClick} likeCourseOnClick = {likeCourseOnClick} isLiked = {isLiked}/>}
+            {isOwner || isBought ? <CourseDetailsBought lesson = {lesson} commentedUsers = {commentedUsers} course = {course} owner = {owner} onClickDeleteLesson= {onClickDeleteLesson} onClickDeleteCourse= {onClickDeleteCourse} isOwner= {isOwner} likeCourseOnClick = {likeCourseOnClick} isLiked = {isLiked} comment = {comment}/> : <CourseDetailsPreview course = {course} owner = {owner} buyCourseOnClick= {buyCourseOnClick} likeCourseOnClick = {likeCourseOnClick} isLiked = {isLiked}/>}
         </>
     )
 }

@@ -3,8 +3,27 @@ import { Link } from 'react-router-dom'
 import background from '../../../images/waves-details.svg'
 import { Comment } from './Comment/Comment'
 import { Lesson } from './Lesson/Lesson'
+import { useState } from 'react'
+import * as lessonsService from '../../../services/lessonsService'
 
 export const CourseDetailsBought = (props) => {
+    const [comment, setComment] = useState('');
+    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const onChange = (e) => {
+        setComment(e.target.value)
+    }
+    const onComment = (e) => {
+        e.preventDefault();
+        lessonsService.comment(props.lesson._id, comment)
+            .then(res => {
+                props.comment(res)
+                setComment('');
+            }).catch(err => {
+                setError(true)
+                setErrorMessage(err.message)
+            })
+    }
     return (
         <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-details">
             {/* Login Form */}
@@ -94,7 +113,7 @@ export const CourseDetailsBought = (props) => {
                             </div>
                             <h2 className="text-center">Comments</h2>
                             {/* Comment form */}
-                            <form>
+                            <form onSubmit = {onComment}>
                                 <div className="form-outline w-100 mx-5">
                                     <textarea
                                         className="form-control"
@@ -102,7 +121,8 @@ export const CourseDetailsBought = (props) => {
                                         rows={3}
                                         style={{ background: "#fff", height: 150, width: 900 }}
                                         placeholder="Comment"
-                                        defaultValue={""}
+                                        value ={comment}
+                                        onChange = {onChange}
                                     />
                                 </div>
                                 <div className="mt-2 pt-1 mx-5">
@@ -110,6 +130,15 @@ export const CourseDetailsBought = (props) => {
                                         Post comment
                                     </button>
                                 </div>
+                                {error && <div
+                                        className="alert alert-danger d-flex align-items-center mt-3"
+                                        role="alert"
+                                    >
+                                        <i className="fa-solid fa-triangle-exclamation me-2" />
+                                        <div className="text-center">
+                                            {errorMessage}
+                                        </div>
+                                    </div>}
                             </form>
                             {props.lesson.comments?.map(x => <Comment key={x._id} {...x} commentedUsers={props.commentedUsers.filter(y => y._id === x.owner)} />)}
                         </div>

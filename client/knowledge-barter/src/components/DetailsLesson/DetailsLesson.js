@@ -13,7 +13,7 @@ import { useIsLiked } from '../../hooks/useIsLiked';
 
 export const DetailsLesson = () => {
     const { id } = useParams();
-    const { lesson, setLesson, owner, commentedUsers } = useLessonsWithUser(id);
+    const { lesson, setLesson, owner, commentedUsers, setCommentedUsers} = useLessonsWithUser(id);
     const navigate = useNavigate();
     const [isOwner] = useOwner(id, true);
     const [isBought] = useBoughtLesson(id);
@@ -62,9 +62,21 @@ export const DetailsLesson = () => {
                 alert(err)
             })
     }
+    const comment = (comment) => {
+        setLesson(state => {
+            let temp = {...state}
+            temp.comments.push(comment)
+            return temp
+        })
+        setCommentedUsers(state => {
+            let temp = [...state]
+            temp.push(fullUserInfo)
+            return temp
+        })
+    }
     return (
         <>
-            {isBought || isOwner ? <LessonDetailsBought lesson={lesson} owner={owner} commentedUsers={commentedUsers} onClickDelete={onClickDelete} likeLessonOnClick= {likeLessonOnClick} isOwner={isOwner} isLiked={isLiked} /> : <LessonDetailsPreview lesson={lesson} owner={owner} buyLessonOnClick={buyLessonOnClick} likeLessonOnClick= {likeLessonOnClick} isLiked={isLiked} />}
+            {isBought || isOwner ? <LessonDetailsBought lesson={lesson} owner={owner} commentedUsers={commentedUsers} onClickDelete={onClickDelete} likeLessonOnClick= {likeLessonOnClick} isOwner={isOwner} isLiked={isLiked} comment = {comment}/> : <LessonDetailsPreview lesson={lesson} owner={owner} buyLessonOnClick={buyLessonOnClick} likeLessonOnClick= {likeLessonOnClick} isLiked={isLiked} />}
         </>
     )
 }
