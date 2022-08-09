@@ -22,6 +22,7 @@ export const CourseDetailsBought = (props) => {
             }).catch(err => {
                 setError(true)
                 setErrorMessage(err.message)
+                setComment('');
             })
     }
     return (
