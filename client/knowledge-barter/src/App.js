@@ -44,15 +44,15 @@ function App() {
                             <Route path='/' element={<Home />} />
                             <Route path='/course/all' element={<Courses />} />
                             <Route path='/lesson/all' element={<Lessons />} />
+                            <Route path='/lesson/details/:id' element={<DetailsLesson />} />
+                            <Route path='/course/details/:courseId/:lessonId' element={<DetailsCourse />} />
                             <Route element={<GuestGuard />}>
                                 <Route path='/logout' element={<Logout />} />
                                 <Route path='/profile' element={<Profile />} />
                                 <Route path='/lesson/create' element={<CreateLesson />} />
-                                <Route path='/lesson/details/:id' element={<DetailsLesson />} />
                                 <Route path='/lesson/bought' element={<BoughtLessons />} />
                                 <Route path='/lesson/yours' element={<YourLessons />} />
                                 <Route path='/course/create' element={<CreateCourse />} />
-                                <Route path='/course/details/:courseId/:lessonId' element={<DetailsCourse />} />
                                 <Route path='/course/bought' element={<BoughtCourses />} />
                                 <Route path='/course/yours' element={<YourCourses />} />
                                 <Route path='/liked' element={<Liked />} />
@@ -60,7 +60,7 @@ function App() {
                             <Route element={<LessonOwner />}>
                                 <Route path='/lesson/edit/:id' element={<EditLesson />} />
                             </Route>
-                            <Route element={<CourseOwner/>}>
+                            <Route element={<CourseOwner />}>
                                 <Route path='/course/edit/:id' element={<EditCourse />} />
                             </Route>
                             <Route element={<UserGuard />}>

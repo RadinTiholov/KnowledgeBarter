@@ -90,7 +90,7 @@ export const DetailsCourse = () => {
     }
     return (
         <>
-            {isOwner || isBought ? <CourseDetailsBought lesson = {lesson} commentedUsers = {commentedUsers} course = {course} owner = {owner} onClickDeleteLesson= {onClickDeleteLesson} onClickDeleteCourse= {onClickDeleteCourse} isOwner= {isOwner} likeCourseOnClick = {likeCourseOnClick} isLiked = {isLiked} comment = {comment}/> : <CourseDetailsPreview course = {course} owner = {owner} buyCourseOnClick= {buyCourseOnClick} likeCourseOnClick = {likeCourseOnClick} isLiked = {isLiked}/>}
+            {isOwner || isBought ? <CourseDetailsBought lesson = {lesson} commentedUsers = {commentedUsers} course = {course} owner = {owner} onClickDeleteLesson= {onClickDeleteLesson} onClickDeleteCourse= {onClickDeleteCourse} isOwner= {isOwner} likeCourseOnClick = {likeCourseOnClick} isLiked = {isLiked} comment = {comment}/> : <CourseDetailsPreview course = {course} owner = {owner} buyCourseOnClick= {buyCourseOnClick} likeCourseOnClick = {likeCourseOnClick} isLiked = {isLiked} isAuth = {auth}/>}
         </>
     )
 }

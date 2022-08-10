@@ -5,9 +5,9 @@ export const useUserInfo = () => {
     const [fullUserInfo, setfullUserInfo] = useState({})
     const {auth} = useContext(AuthContext);
     useEffect(() => {
-        authService.getDetails(auth._id)
+        authService.getDetails(auth?._id)
             .then(res => setfullUserInfo(res))
-            .catch(err => alert(err))
+            .catch(err => console.log(err))
     }, [])
     return [
         fullUserInfo, setfullUserInfo

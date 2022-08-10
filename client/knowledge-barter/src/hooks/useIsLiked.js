@@ -6,7 +6,7 @@ export const useIsLiked = (id, isLesson) => {
     const [isLiked, setIsLiked] = useState(false);
     const { auth } = useContext(AuthContext);
     useEffect(() => {
-        authService.getDetails(auth._id)
+        authService.getDetails(auth?._id)
             .then(res => {
                 setfullUserInfo(res)
                 if (isLesson) {
@@ -23,7 +23,7 @@ export const useIsLiked = (id, isLesson) => {
                     }
                 }
             })
-            .catch(err => alert(err))
+            .catch(err => console.log(err))
     }, [])
 
     return [

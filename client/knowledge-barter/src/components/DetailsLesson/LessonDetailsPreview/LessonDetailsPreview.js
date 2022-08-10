@@ -42,7 +42,9 @@ export const LessonDetailsPreview = (props) => {
                                             </div>
                                         </div>
                                         <div className="col-5">
-                                            <div className="row">
+                                            {props.isAuth ? <>
+                                            
+                                                <div className="row">
                                                 {props.isLiked ?
                                                     <button
                                                         className="btn btn-outline-warning btn-lg mt-4 fw-bold"
@@ -81,6 +83,7 @@ export const LessonDetailsPreview = (props) => {
                                                     Buy ({props.lesson.price})
                                                 </button>
                                             </div>
+                                            </> : null}
                                         </div>
                                     </div>
                                 </div>

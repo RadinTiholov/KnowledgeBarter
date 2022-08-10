@@ -38,7 +38,8 @@ export const CourseDetailsPreview = (props) => {
                                             </div>
                                         </div>
                                         <div className="col-5">
-                                            <div className="row">
+                                            {props.isAuth ? <>
+                                                <div className="row">
                                                 {props.isLiked ? <button
                                                     className="btn btn-outline-warning btn-lg mt-4 fw-bold"
                                                     style={{
@@ -74,7 +75,8 @@ export const CourseDetailsPreview = (props) => {
                                                 >
                                                     Buy ({props.course.price})
                                                 </button>
-                                            </div>
+                                            </div></> : null}
+                                            
                                         </div>
                                     </div>
                                 </div>
