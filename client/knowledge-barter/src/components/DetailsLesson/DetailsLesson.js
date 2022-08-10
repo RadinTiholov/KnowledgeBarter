@@ -76,7 +76,7 @@ export const DetailsLesson = () => {
     }
     return (
         <>
-            {isBought || isOwner ? <LessonDetailsBought lesson={lesson} owner={owner} commentedUsers={commentedUsers} onClickDelete={onClickDelete} likeLessonOnClick= {likeLessonOnClick} isOwner={isOwner} isLiked={isLiked} comment = {comment}/> : <LessonDetailsPreview lesson={lesson} owner={owner} buyLessonOnClick={buyLessonOnClick} likeLessonOnClick= {likeLessonOnClick} isLiked={isLiked} />}
+            {isBought || isOwner ? <LessonDetailsBought lesson={lesson} owner={owner} commentedUsers={commentedUsers} onClickDelete={onClickDelete} likeLessonOnClick= {likeLessonOnClick} isOwner={isOwner} isLiked={isLiked} comment = {comment}/> : <LessonDetailsPreview lesson={lesson} owner={owner} buyLessonOnClick={buyLessonOnClick} likeLessonOnClick= {likeLessonOnClick} isLiked={isLiked} isAuth = {auth}/>}
         </>
     )
 }

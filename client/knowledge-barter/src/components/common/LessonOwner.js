@@ -5,12 +5,11 @@ import { LessonContext } from "../../contexts/LessonContext";
 
 const LessonOwner = ({ children }) => {
     const { select } = useContext(LessonContext);
-    const { auth, isAuthenticated } = useContext(AuthContext);
+    const { auth } = useContext(AuthContext);
     const { id } = useParams();
 
     const currentLesson = select(id);
-
-    if (isAuthenticated && auth._id !== currentLesson.owner) {
+    if (auth?._id !== currentLesson.owner) {
         return <Navigate to='/lesson/all' replace />
     }
 
