@@ -43,7 +43,8 @@ function App() {
                         <Routes>
                             <Route path='/' element={<Home />} />
                             <Route path='/course/all' element={<Courses />} />
-                            <Route path='/lesson/all' element={<Lessons />} />
+                            <Route path='/lesson/all' element={<Lessons />}/>
+                            <Route path='/lesson/all/:search' element={<Lessons />}/>
                             <Route path='/lesson/details/:id' element={<DetailsLesson />} />
                             <Route path='/course/details/:courseId/:lessonId' element={<DetailsCourse />} />
                             <Route element={<GuestGuard />}>

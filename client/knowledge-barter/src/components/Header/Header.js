@@ -1,10 +1,19 @@
 import './Header.css'
 import logo from '../../images/logo.png'
-import { Link } from 'react-router-dom';
-import { useContext } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { useContext, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 export const Header = () => {
-    const { isAuthenticated , auth} = useContext(AuthContext);
+    const { isAuthenticated, auth } = useContext(AuthContext);
+    const [search, setSearch] = useState();
+    const navigate = useNavigate();
+    const onChange = (e) => {
+        setSearch(e.target.value)
+    }
+    const onSearch = (e) => {
+        e.preventDefault();
+        navigate(`/lesson/all/${search}`)
+    }
     return (
         <section id="nav-bar">
             <nav className="navbar navbar-expand-lg">
@@ -41,12 +50,15 @@ export const Header = () => {
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <form className="d-flex" role="search">
+                                <form className="d-flex" role="search" onSubmit={onSearch}>
                                     <input
-                                        className="form-control me-2 text-light"
-                                        type="search"
-                                        placeholder="Search"
-                                        aria-label="Search"
+                                        type="text"
+                                        className="form-control me-2"
+                                        name="title"
+                                        id="title"
+                                        placeholder="Search for a lesson"
+                                        value={search}
+                                        onChange={onChange}
                                     />
                                     <button className="btn btn-outline-warning" type="submit">
                                         Search
@@ -139,7 +151,7 @@ export const Header = () => {
                                                 </Link>
                                             </li>
                                             <li>
-                                            <Link className="dropdown-item" to="/logout">
+                                                <Link className="dropdown-item" to="/logout">
                                                     Logout
                                                 </Link>
                                             </li>

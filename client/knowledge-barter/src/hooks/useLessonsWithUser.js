@@ -27,8 +27,8 @@ export const useLessonsWithUser = (id) => {
             })
             .catch(err => {
                 setLesson({
-                    title: "Lesson not found or deleted(sorry)",
-                    description: "Lesson not found or deleted(sorry)",
+                    title: "Lesson not found or deleted (sorry)",
+                    description: "Lesson not found or deleted (sorry)",
                 })
             })
     }, [id])
