@@ -131,11 +131,8 @@ export const LessonDetailsBought = (props) => {
                         </div>
                     </div>
                     <div className="col-2">
-                        <p>Recommended</p>
-                        <Lesson />
-                        <Lesson />
-                        <Lesson />
-                        <Lesson />
+                        <p>Top rated lessons</p>
+                        {props.mostPopularLessons?.map(x => <Lesson key = {x._id} {...x}/>)}
                     </div>
                 </div>
             </div>

@@ -5,7 +5,7 @@ import { useOwner } from "../../hooks/useOwner";
 import { LessonDetailsBought } from "./LessonDetailsBought/LessonDetailsBought";
 import { LessonDetailsPreview } from "./LessonDetailsPreview/LessonDetailsPreview";
 import * as lessonService from '../../services/lessonsService'
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { LessonContext } from '../../contexts/LessonContext';
 import { AuthContext } from '../../contexts/AuthContext';
 import { useUserInfo } from '../../hooks/useUserInfo'
@@ -21,6 +21,12 @@ export const DetailsLesson = () => {
     const [isLiked, setIsLiked] = useIsLiked(id, true);
     const { delLesson } = useContext(LessonContext)
     const { auth, updatePoints } = useContext(AuthContext)
+    const [mostPopularLessons, setMostPopularLessons] = useState([]);
+    useEffect(() => {
+        lessonService.getPopular()
+            .then(res => setMostPopularLessons(res))
+            .catch(err => alert(err))
+    }, [])
     const onClickDelete = () => {
         lessonService.del(id)
             .then(res => {
@@ -76,7 +82,7 @@ export const DetailsLesson = () => {
     }
     return (
         <>
-            {isBought || isOwner ? <LessonDetailsBought lesson={lesson} owner={owner} commentedUsers={commentedUsers} onClickDelete={onClickDelete} likeLessonOnClick= {likeLessonOnClick} isOwner={isOwner} isLiked={isLiked} comment = {comment}/> : <LessonDetailsPreview lesson={lesson} owner={owner} buyLessonOnClick={buyLessonOnClick} likeLessonOnClick= {likeLessonOnClick} isLiked={isLiked} isAuth = {auth}/>}
+            {isBought || isOwner ? <LessonDetailsBought lesson={lesson} owner={owner} commentedUsers={commentedUsers} onClickDelete={onClickDelete} likeLessonOnClick= {likeLessonOnClick} isOwner={isOwner} isLiked={isLiked} comment = {comment} mostPopularLessons= {!Array.isArray(mostPopularLessons) ? [] : mostPopularLessons}/> : <LessonDetailsPreview lesson={lesson} owner={owner} buyLessonOnClick={buyLessonOnClick} likeLessonOnClick= {likeLessonOnClick} isLiked={isLiked} isAuth = {auth}/>}
         </>
     )
 }

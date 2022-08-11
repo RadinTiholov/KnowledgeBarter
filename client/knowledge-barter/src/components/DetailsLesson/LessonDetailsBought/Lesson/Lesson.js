@@ -1,22 +1,24 @@
-export const Lesson = () => {
+import { Link } from "react-router-dom"
+
+export const Lesson = (props) => {
     return (
         <div className="row mb-2">
             <div className="card card-display-details" style={{ width: "15rem" }}>
                 <img
-                    src="https://picsum.photos/1500/700"
+                    src={props.tumbnail}
                     className="card-img mt-2"
                     style={{ height: "7rem" }}
                     alt="..."
                 />
                 <div className="card-body">
-                    <h5 className="card-title fw-bold">C# free course</h5>
-                    <a
-                        href="#"
+                    <h5 className="card-title fw-bold">{props.title}</h5>
+                    <Link
+                        to={"/lesson/details/" + props._id}
                         className="btn"
                         style={{ backgroundColor: "#f0ad4e", color: "#fff" }}
                     >
                         Details
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>
