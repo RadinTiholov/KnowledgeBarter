@@ -242,7 +242,7 @@ export const CreateLesson = () => {
                                     >
                                         <i className="fa-solid fa-triangle-exclamation me-2" />
                                         <div className="text-center">
-                                        The length of the description must be a minimum of 50 and a maximum of 1000 characters.
+                                        The length of the article must be a minimum of 50 and a maximum of 1000 characters.
                                         </div>
                                     </div>}
                                     {/* Error message */}

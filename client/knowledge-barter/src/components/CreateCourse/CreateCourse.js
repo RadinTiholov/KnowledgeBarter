@@ -143,10 +143,10 @@ export const CreateCourse = () => {
                                 <div className="form-floating mb-3">
                                 { collection.length > 0 ? collection?.map(x => <Option {...x} key = {x._id} onChange= {onChange} value = {inputData.lessons}/>)  : <p className='text-center'>No lessons yet.</p>}
                                 {error.active === true ? <div className="alert alert-danger fade show mt-3">
-                                        <strong>Error!</strong> {error.message}
+                                        <strong>Error! </strong> {error.message}
                                     </div>: null}
                                 {collection?.length < 6 ? <div className="alert alert-danger fade show mt-3">
-                                        <strong>Error!</strong>You need at least 6 lessons to create a course.
+                                        <strong>Error! </strong>You need at least 6 lessons to create a course.
                                     </div>: null}
                                 </div>
                                 <div className="d-grid">

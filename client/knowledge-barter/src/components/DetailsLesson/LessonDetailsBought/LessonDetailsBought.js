@@ -131,7 +131,7 @@ export const LessonDetailsBought = (props) => {
                         </div>
                     </div>
                     <div className="col-2">
-                        <p>Top rated lessons</p>
+                        <p>Most popular lessons</p>
                         {props.mostPopularLessons?.map(x => <Lesson key = {x._id} {...x}/>)}
                     </div>
                 </div>
