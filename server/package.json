@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-postbuild" : "NPM_CONFIG_PRODUCTION=false npm install --prefix client/knowledge-barter && npm run build --prefix client/knowledge-barter"
   },
   "keywords": [],
   "author": "",
