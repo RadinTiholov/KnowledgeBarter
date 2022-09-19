@@ -6,7 +6,7 @@ Knowledge barter is a web application for exchanging lessons on different topics
 cd client/knowledge-barter
 npm install
 npm start
-#In new terminal
+#In a new terminal
 cd server
 npm install
 npm start
