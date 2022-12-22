@@ -39,13 +39,9 @@ router.get('/details/:id', async (req, res) => {
 
 router.put('/edit/:id', isAuth, async (req, res) => {
     try {
-        const lesson = await lessonService.getOne(req.params.id).lean();
-        if (lesson.owner == req.user._id) {
-            await lessonService.updateById(req.params.id, req.body);
-            res.json("Successfully updated");
-        } else {
-            throw new Error("Unauthorized to do this action");
-        }
+        const result = await lessonService.edit(req.body, req.params.id, req.user._id);
+        
+        res.json(result);
     } catch (error) {
         res.status(400).json({ message: error.message })
     }
@@ -53,17 +49,19 @@ router.put('/edit/:id', isAuth, async (req, res) => {
 
 router.delete('/delete/:id', isAuth, async (req, res) => {
     try {
-        const lesson = await lessonService.getOne(req.params.id).lean();
-        if (lesson) {
-            if (lesson.owner == req.user._id) {
-                await lessonService.deleteById(req.params.id);
-                res.json("Successfully deleted");
-            } else {
-                throw new Error("Unauthorized to do this action");
-            }
-        } else {
-            throw new Error("Not found");
-        }
+        const result = await lessonService.delete(req.params.id, req.user._id);
+        // const lesson = await lessonService.getOne(req.params.id).lean();
+        // if (lesson) {
+        //     if (lesson.owner == req.user._id) {
+        //         await lessonService.deleteById(req.params.id);
+        //         res.json("Successfully deleted");
+        //     } else {
+        //         throw new Error("Unauthorized to do this action");
+        //     }
+        // } else {
+        //     throw new Error("Not found");
+        // }
+        res.json(result);
     } catch (error) {
         res.status(400).json({ message: error.message })
     }

@@ -3,8 +3,6 @@ const userService = require('../services/userService.js');
 
 exports.getAll = () => Lesson.find();
 exports.getOne = (id) => Lesson.findById(id);
-exports.updateById = (id, data) => Lesson.findOneAndUpdate({ _id: id }, data, { runValidators: true });
-exports.deleteById = (id) => Lesson.deleteOne({ _id: id });
 
 exports.likeById = (id, data) => {
     data.likes += 1;
@@ -45,4 +43,29 @@ exports.incrementViews = async (lessonId) => {
     const lessonRaw = await this.getOne(lessonId);
     lessonRaw.views++;
     lessonRaw.save();
+}
+
+exports.edit = async (data, id, userId) => {
+    const lesson = await this.getOne(id).lean();
+
+    if (lesson.owner == userId) {
+        await Lesson.findOneAndUpdate({ _id: id }, data, { runValidators: true });
+        return "Successfully updated"
+    } else {
+        throw new Error("Unauthorized to do this action");
+    }
+}
+
+exports.delete = async (lessonId, userId) => {
+    const lesson = await this.getOne(lessonId).lean();
+        if (lesson) {
+            if (lesson.owner == userId) {
+                await Lesson.deleteOne({ _id: lessonId });
+                return "Successfully deleted";
+            } else {
+                throw new Error("Unauthorized to do this action");
+            }
+        } else {
+            throw new Error("Not found");
+        }
 }
