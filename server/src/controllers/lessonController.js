@@ -18,20 +18,7 @@ router.get('/all', async (req, res) => {
 router.post('/all', isAuth, async (req, res) => {
     try {
         const data = req.body;
-        data['likes'] = 0;
-        data['owner'] = req.user._id;
-        data['views'] = 0;
-        data['price'] = 100;
-
-        const result = await lessonService.create(data);
-
-        const owner = await userService.getUser(req.user._id).lean();
-        owner.kbpoints += 100;
-        await userService.updateKBPoints(req.user._id, owner);
-
-        const userRaw = await userService.getUser(req.user._id);
-        userRaw.ownLessons.push(result._id);
-        userRaw.save();
+        const result = await lessonService.create(data, req.user._id);
 
         res.json(result);
     } catch (error) {
