@@ -5,7 +5,7 @@ exports.getAll = () => Lesson.find();
 exports.getOne = (id) => Lesson.findById(id);
 
 exports.getMostPopular = async () => {
-    const lessons = await this.getAll().lean();
+    const lessons = await this.getAll().lean().sort({'views': -1});
 
     if (lessons.length >= 4) {
         return [lessons[0], lessons[1], lessons[2], lessons[3]];
