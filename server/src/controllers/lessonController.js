@@ -28,9 +28,7 @@ router.post('/all', isAuth, async (req, res) => {
 
 router.get('/details/:id', async (req, res) => {
     try {
-        const lessonRaw = await lessonService.getOne(req.params.id);
-        lessonRaw.views++;
-        lessonRaw.save();
+        await lessonService.incrementViews(req.params.id);
 
         const lesson = await lessonService.getOne(req.params.id).populate('comments').lean();
         res.json(lesson);

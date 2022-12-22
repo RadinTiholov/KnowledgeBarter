@@ -5,10 +5,12 @@ exports.getAll = () => Lesson.find();
 exports.getOne = (id) => Lesson.findById(id);
 exports.updateById = (id, data) => Lesson.findOneAndUpdate({ _id: id }, data, { runValidators: true });
 exports.deleteById = (id) => Lesson.deleteOne({ _id: id });
+
 exports.likeById = (id, data) => {
     data.likes += 1;
     return Lesson.findOneAndUpdate({ _id: id }, data, { runValidators: true })
 }
+
 exports.getMostPopular = async () => {
     const lessons = await this.getAll().lean();
 
@@ -19,6 +21,7 @@ exports.getMostPopular = async () => {
         return {};
     }
 }
+
 exports.create = async (data, userId) => {
     data['likes'] = 0;
     data['owner'] = userId;
@@ -36,4 +39,10 @@ exports.create = async (data, userId) => {
     userRaw.save();
 
     return result;
+}
+
+exports.incrementViews = async (lessonId) => {
+    const lessonRaw = await this.getOne(lessonId);
+    lessonRaw.views++;
+    lessonRaw.save();
 }
