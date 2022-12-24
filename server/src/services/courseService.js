@@ -4,11 +4,6 @@ const userService = require('../services/userService.js');
 exports.getAll = () => Course.find();
 exports.getOne = (id) => Course.findById(id);
 
-exports.likeById = (id, data) => {
-    data.likes += 1;
-    return Course.findOneAndUpdate({ _id: id }, data, { runValidators: true })
-}
-
 exports.getHighestRated = async () => {
     const courses = await this.getAll().lean().sort({ 'likes': -1 });
     if (courses.length >= 4) {
@@ -58,16 +53,39 @@ exports.edit = async (courseId, userId, data) => {
 
 exports.delete = async (courseId, userId) => {
     const course = await this.getOne(courseId).lean();
-        if(course){
-            if(course.owner == userId){
-                await Course.deleteOne({_id: courseId});
-                return "Successfully deleted";
-            }else{
-                throw new Error("Unauthorized to do this action");
-            }
-        }else{
-            throw new Error("Not found"); 
+    if (course) {
+        if (course.owner == userId) {
+            await Course.deleteOne({ _id: courseId });
+            return "Successfully deleted";
+        } else {
+            throw new Error("Unauthorized to do this action");
         }
+    } else {
+        throw new Error("Not found");
+    }
+}
+
+exports.like = async (courseId, userId) => {
+    const course = await this.getOne(courseId).lean();
+    const user = await userService.getUser(userId).lean();
+    if (course) {
+        if (course.owner == userId || user.likedCourses.some(x => x == courseId)) {
+            throw new Error("Unauthorized to do this action");
+        } else {
+            // Updating the count of the likes
+            course.likes += 1;
+            await Course.findOneAndUpdate({ _id: courseId }, course, { runValidators: true });
+
+            const userRaw = await userService.getUser(userId);
+            
+            userRaw.likedCourses.push(courseId);
+            userRaw.save();
+
+            return "Successfully liked";
+        }
+    } else {
+        throw new Error("Not found");
+    }
 }
 
 function ownsAll(data, owner) {
