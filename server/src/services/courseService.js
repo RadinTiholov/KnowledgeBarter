@@ -3,8 +3,6 @@ const userService = require('../services/userService.js');
 
 exports.getAll = () => Course.find();
 exports.getOne = (id) => Course.findById(id);
-exports.updateById = (id, data) => Course.findOneAndUpdate({ _id: id }, data, { runValidators: true });
-exports.deleteById = (id) => Course.findOneAndDelete(id);
 
 exports.likeById = (id, data) => {
     data.likes += 1;
@@ -48,19 +46,43 @@ exports.create = async (data, userId) => {
     return result;
 }
 
-function ownsAll(data, owner){
-    let ownsAllLessons = true;
-        for (const lesson of data['lessons']) {
-            let temp = false;
-            owner.ownLessons.forEach(userLesson => {
-                if(lesson == userLesson){
-                    temp = true;
-                }
-            });
-            if(!temp){
-                ownsAllLessons = false;
-                break;
+exports.edit = async (courseId, userId, data) => {
+    const course = await this.getOne(courseId).lean();
+    if (course.owner == userId) {
+        await Course.findOneAndUpdate({ _id: courseId }, data, { runValidators: true });
+        return "Successfully updated";
+    } else {
+        throw new Error("Unauthorized to do this action");
+    }
+}
+
+exports.delete = async (courseId, userId) => {
+    const course = await this.getOne(courseId).lean();
+        if(course){
+            if(course.owner == userId){
+                await Course.deleteOne({_id: courseId});
+                return "Successfully deleted";
+            }else{
+                throw new Error("Unauthorized to do this action");
             }
+        }else{
+            throw new Error("Not found"); 
         }
+}
+
+function ownsAll(data, owner) {
+    let ownsAllLessons = true;
+    for (const lesson of data['lessons']) {
+        let temp = false;
+        owner.ownLessons.forEach(userLesson => {
+            if (lesson == userLesson) {
+                temp = true;
+            }
+        });
+        if (!temp) {
+            ownsAllLessons = false;
+            break;
+        }
+    }
     return ownsAllLessons;
 }
