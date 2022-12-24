@@ -77,11 +77,34 @@ exports.like = async (courseId, userId) => {
             await Course.findOneAndUpdate({ _id: courseId }, course, { runValidators: true });
 
             const userRaw = await userService.getUser(userId);
-            
+
             userRaw.likedCourses.push(courseId);
             userRaw.save();
 
             return "Successfully liked";
+        }
+    } else {
+        throw new Error("Not found");
+    }
+}
+
+exports.buy = async (courseId, userId) => {
+    const course = await this.getOne(courseId).lean();
+    const user = await userService.getUser(userId).lean();
+    if (course) {
+        if (course.owner == userId || user.boughtCourses.some(x => x == courseId)) {
+            throw new Error("Unauthorized to do this action");
+        } else {
+            if (user.kbpoints >= course.price) {
+                const userRaw = await userService.getUser(userId);
+                userRaw.boughtCourses.push(courseId);
+                userRaw.kbpoints -= course.price;
+                userRaw.save();
+
+                return "Successfully bought";
+            } else {
+                throw new Error("You don't have enought money");
+            }
         }
     } else {
         throw new Error("Not found");
