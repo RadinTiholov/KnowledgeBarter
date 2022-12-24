@@ -1,8 +1,6 @@
 const router = require('express').Router();
 
 const lessonService = require('../services/lessonService.js');
-const userService = require('../services/userService.js');
-const commentService = require('../services/commentService.js');
 const { isAuth, isGuest } = require('../middlewares/authMiddleware.js');
 
 router.get('/popular', async (req, res) => {

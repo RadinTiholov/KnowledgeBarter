@@ -16,30 +16,7 @@ router.get('/all', async  (req, res) => {
 
 router.post('/all', isAuth, async (req, res) => {
     try{
-        const data = req.body;
-        const owner = await userService.getUser(req.user._id).lean();
-
-        data['likes'] = 0;
-        data['price'] = 500;
-        data['owner'] = req.user._id;
-        if(data['lessons'].length <= 5){
-            throw new Error("Lessons should be more than 5")
-        }
-        if(data['lessons'].some(x => data['lessons'].indexOf(x) !== data['lessons'].lastIndexOf(x))){
-            throw new Error("Unauthorized to do this action")
-        }
-        if(!ownsAll(data, owner)){
-            throw new Error("Unauthorized to do this action")
-        }
-
-        const result = await courseService.create(data);
-
-        owner.kbpoints += 500;
-        await userService.updateKBPoints(req.user._id, owner);
-
-        const userRaw = await userService.getUser(req.user._id);
-        userRaw.ownCourses.push(result._id);
-        userRaw.save();
+        const result = await courseService.create(req.body, req.user._id);
 
         res.json(result);
     }catch(error){
@@ -138,22 +115,5 @@ router.get('/buy/:id', isAuth, async (req, res) => {
         res.status(400).json({message: error.message})
     }
 })
-
-function ownsAll(data, owner){
-    let ownsAllLessons = true;
-        for (const lesson of data['lessons']) {
-            let temp = false;
-            owner.ownLessons.forEach(userLesson => {
-                if(lesson == userLesson){
-                    temp = true;
-                }
-            });
-            if(!temp){
-                ownsAllLessons = false;
-                break;
-            }
-        }
-    return ownsAllLessons;
-}
 
 module.exports = router;
